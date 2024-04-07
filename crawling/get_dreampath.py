@@ -13,11 +13,14 @@ from dotenv import load_dotenv
 import os
 import re
 
+from processing import crawling_to_df
+
 # .env 파일 로드
-load_dotenv()
+load_dotenv()   
 
 company_list = []
 spec_list = []
+resume_list = []
 
 # Chrome WebDriver 경로 설정
 url = "https://ddp.dongguk.edu/login.jsp"
@@ -30,7 +33,8 @@ driver.get(url)
 
 # 로그인 정보
 # .env파일 만들어서 학번이랑 비번 입력해주세요!
-username = os.getenv('USERNAME')
+# username = os.getenv('USERNAME')
+username = 2019112458
 password = os.getenv('PASSWORD')
 
 
@@ -61,7 +65,7 @@ it_button.click()
 search_button = driver.find_element(By.XPATH, '//*[@id="searchForm"]/fieldset/button')
 search_button.click()
 
-for page in range(1, 150):
+for page in range(1, 50):
     print(page)
     for i in range(1, 11):
         # 각 tr 요소의 Xpath를 동적으로 생성
@@ -93,10 +97,27 @@ for page in range(1, 150):
 
         # 추출한 하위 요소 출력
             specs = []
+            resume = []
             for element in inner_elements:
                 specs.append(element.text)
             spec_list.append(specs)
+            
+     
+            div_elements = soup.find_all('div')
+
+            # 선택된 <div> 요소들 중에서 style 속성이 "line-height:22px;" 인 요소들을 추출 -> 자소서 부분.
+            common_elements = [div for div in div_elements if div.get('style') == 'line-height:22px;']
+
+            for element in common_elements:
+                try:
+                    if element:
+                        resume_list.append(element.text)
+                        print(element.text)
+                except Exception as e:
+                    driver.close()
+       
             driver.close()
+            
         finally:
             time.sleep(1)   
             driver.switch_to.window(driver.window_handles[0])
@@ -108,10 +129,17 @@ for page in range(1, 150):
     page_button = driver.find_element(By.XPATH, page_path)
     page_button.click()    
 
+# print(company_list)
+# print(spec_list)
 print(company_list)
 print(spec_list)
+print(resume_list)
 
 time.sleep(5)
 
 # # WebDriver 종료
 driver.quit()
+
+crawling_df = crawling_to_df(spec_list,company_list)
+
+crawling_df.to_excel('output_page_50.xlsx', index=False)
