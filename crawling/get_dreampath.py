@@ -13,8 +13,10 @@ from dotenv import load_dotenv
 import os
 import re
 
+from processing import crawling_to_df
+
 # .env 파일 로드
-load_dotenv()
+load_dotenv()   
 
 company_list = []
 spec_list = []
@@ -30,7 +32,8 @@ driver.get(url)
 
 # 로그인 정보
 # .env파일 만들어서 학번이랑 비번 입력해주세요!
-username = os.getenv('USERNAME')
+# username = os.getenv('USERNAME')
+username = 2019112458
 password = os.getenv('PASSWORD')
 
 
@@ -61,7 +64,7 @@ it_button.click()
 search_button = driver.find_element(By.XPATH, '//*[@id="searchForm"]/fieldset/button')
 search_button.click()
 
-for page in range(1, 150):
+for page in range(1, 50):
     print(page)
     for i in range(1, 11):
         # 각 tr 요소의 Xpath를 동적으로 생성
@@ -108,10 +111,14 @@ for page in range(1, 150):
     page_button = driver.find_element(By.XPATH, page_path)
     page_button.click()    
 
-print(company_list)
-print(spec_list)
+# print(company_list)
+# print(spec_list)
 
 time.sleep(5)
 
 # # WebDriver 종료
 driver.quit()
+
+crawling_df = crawling_to_df(spec_list,company_list)
+
+crawling_df.to_excel('output_page_50.xlsx', index=False)
