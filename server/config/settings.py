@@ -50,13 +50,13 @@ INSTALLED_APPS = [
     'allauth.account',
 
     # 앱
-    "users", # 유저 정보 관련 기능
+    "accounts", # 유저 정보 관련 기능
     "matching", # 선배 매칭 관련 기능
 ]
 
 REST_USE_JWT = True # jwt 사용 여부
-JWT_AUTH_COOKIE = 'users-auth' # 호출할 cookie key 값
-JWT_AUTH_REFRESH_COOKIE = 'users-refresh-token' # refresh token cookie key 값
+JWT_AUTH_COOKIE = 'accounts-auth' # 호출할 cookie key 값
+JWT_AUTH_REFRESH_COOKIE = 'accounts-refresh-token' # refresh token cookie key 값
 
 
 REST_FRAMEWORK = {
@@ -66,17 +66,15 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH = {
-   "REGISTER_SERIALIZER":"users.serializers.CustomRegisterSerializer",
+   "REGISTER_SERIALIZER":"accounts.serializers.CustomRegisterSerializer",
 }
 
 
 SIMPLE_JWT = {
-    "TOKEN_OBTAIN_SERIALIZER": "users.serializers.MyTokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "accounts.serializers.MyTokenObtainPairSerializer",
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
-
-AUTH_USER_MODEL = 'user.User'
 
 SITE_ID = 1
 REST_USE_JWT = True
@@ -175,4 +173,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'accounts.User'

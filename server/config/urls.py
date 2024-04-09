@@ -25,6 +25,6 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('users/', include('users.urls')), # user 관련
+    path('accounts/', include('accounts.urls')), # accounts 관련
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
