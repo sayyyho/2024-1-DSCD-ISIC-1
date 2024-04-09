@@ -1,32 +1,34 @@
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import authenticate
+from dj_rest_auth.registration.serializers import RegisterSerializer
+from allauth.account.adapter import get_adapter
 from .models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True) # 비밀번호는 response에 포함 x
-
+class CustomRegisterSerializer(RegisterSerializer):
+    first_name = serializers.CharField(required=True)
+    last_name = serializers.CharField(required=True)
+    phone_number = serializers.CharField(required=False)
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'phone_number']
+        fields = ['username', 'email', 'password', 'last_name', 'first_name', 'phone_number',]
 
-class CustomTokenObtainPairSerializer(serializers.Serializer): # jwt 인증을 위한 serializer
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
+    # override get_cleaned_data of RegisterSerializer
+    def get_cleaned_data(self):
+        data = super().get_cleaned_data()
+        data['last_name'] = self.validated_data.get('last_name', '')
+        data['first_name'] = self.validated_data.get('first_name', '')
+        data['phone_number'] = self.validated_data.get('phone_number', '')
+        
+        return data
 
-    def validate(self, attrs):
-        username = attrs.get("username")
-        password = attrs.get("password")
-
-        if username and password:
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                refresh = RefreshToken.for_user(user)
-                token_data = {
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token)
-                }
-                return token_data
-            raise serializers.ValidationError("해당하는 사용자 정보가 없습니다.")
-        else:
-            raise serializers.ValidationError("아이디와 비밀번호를 모두 입력해주세요.")
+    # override save method of RegisterSerializer
+    def save(self, request):
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        self.cleaned_data = self.get_cleaned_data()
+        user.last_name = self.cleaned_data.get('last_name')
+        user.first_name = self.cleaned_data.get('first_name')
+        user.phone_number = self.cleaned_data.get('phone_number')
+        user.save()
+        adapter.save_user(request, user, self)
+        
+        return user
