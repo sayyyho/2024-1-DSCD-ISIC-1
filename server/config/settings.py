@@ -71,7 +71,6 @@ REST_AUTH = {
 
 
 SIMPLE_JWT = {
-    "TOKEN_OBTAIN_SERIALIZER": "accounts.serializers.MyTokenObtainPairSerializer",
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
@@ -83,8 +82,6 @@ ACCOUNT_EMAIL_REQUIRED = False          # email 필드 사용 x
 ACCOUNT_USERNAME_REQUIRED = True        # username 필드 사용 o
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입 과정에서 이메일 인증 사용 X
-
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
