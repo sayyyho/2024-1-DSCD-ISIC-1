@@ -31,4 +31,4 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.save()
         adapter.save_user(request, user, self)
         
-        return user
+        return user    
