@@ -1,7 +1,11 @@
+import { LogoFrame } from "@/components/LogoFrame";
+import { PageLayout } from "@/components/PageLayout";
+import { LoginForm } from "@/components/LoginForm";
 export const Login = () => {
   return (
-    <div>
-      <h1>login</h1>
-    </div>
+    <PageLayout>
+      <LogoFrame></LogoFrame>
+      <LoginForm></LoginForm>
+    </PageLayout>
   );
 };
