@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    'django.contrib.sites',
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -44,11 +45,19 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework.authtoken",
     "dj_rest_auth",
+    'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
 
     # 앱
-    "users", # 유저 정보 관련 기능
+    "accounts", # 유저 정보 관련 기능
     "matching", # 선배 매칭 관련 기능
 ]
+
+REST_USE_JWT = True # jwt 사용 여부
+JWT_AUTH_COOKIE = 'accounts-auth' # 호출할 cookie key 값
+JWT_AUTH_REFRESH_COOKIE = 'accounts-refresh-token' # refresh token cookie key 값
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -56,10 +65,23 @@ REST_FRAMEWORK = {
     ),
 }
 
+REST_AUTH = {
+   "REGISTER_SERIALIZER":"accounts.serializers.CustomRegisterSerializer",
+}
+
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+SITE_ID = 1
+REST_USE_JWT = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username' # User 모델의 username 변경 x
+ACCOUNT_EMAIL_REQUIRED = False          # email 필드 사용 x
+ACCOUNT_USERNAME_REQUIRED = True        # username 필드 사용 o
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입 과정에서 이메일 인증 사용 X
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -69,6 +91,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -125,7 +148,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -148,4 +170,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'accounts.User'
