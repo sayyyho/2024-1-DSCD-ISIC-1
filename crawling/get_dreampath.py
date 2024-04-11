@@ -25,9 +25,13 @@ resume_list = []
 # Chrome WebDriver 경로 설정
 url = "https://ddp.dongguk.edu/login.jsp"
 
-# Selenium WebDriver로 Chrome 실행
+#Selenium WebDriver로 Chrome 실행
 driver = webdriver.Chrome()
 driver.get(url)
+
+# # .env 파일에 chromedrive 경로 설정
+# driver_path = os.getenv('CHROME_DRIVER_PATH')
+# driver = webdriver.Chrome(driver_path)
 
 
 
@@ -36,6 +40,7 @@ driver.get(url)
 # username = os.getenv('USERNAME')
 username = 2019112458
 password = os.getenv('PASSWORD')
+print(username, password)
 
 
 # 아이디 입력란에 입력 후 엔터
