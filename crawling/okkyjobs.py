@@ -26,17 +26,19 @@ time.sleep(2)
 
 sen_lst = []
 skills_lst = []
-# XPath를 찾아서 리스트로 저장합니다.
-# sentence = driver.find_element(By.XPATH ,'//*[@id="__next"]/main/div/div[3]/div[2]/button[1]/div/div[2]/div[1]')
-# print(elements.text)
+name_lst = []
 
 for i in range(1,21):
     sentence = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/div[2]/div[1]')
     sen_lst.append(sentence.text)
 
     xpath = '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/'
+
     sentence = driver.find_element(By.XPATH, xpath + 'div[2]/div[1]')
     sen_lst.append(sentence.text)
+
+    name = driver.find_element(By.XPATH, xpath + 'div[1]/div[1]/div/div/div[1]/div[1]')
+    name_lst.append(name)
 
     # 대표 스킬들
     skills = []
