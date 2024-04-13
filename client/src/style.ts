@@ -1,7 +1,18 @@
 import { createGlobalStyle } from "styled-components";
+import Jua from "@/assets/font/Jua-Regular.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 
+
+@font-face {
+    font-family: 'Jua';
+    src: url(${Jua}) format('truetype');
+    font-weight: normal;
+  } 
+* {
+  font-family: 'Jua';
+
+}
 
 html, body {
   margin: 0;

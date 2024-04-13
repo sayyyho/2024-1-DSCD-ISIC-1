@@ -2,8 +2,8 @@ export interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
   $status?: boolean;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   margin?: string;
   padding?: string;
   radius?: string;
