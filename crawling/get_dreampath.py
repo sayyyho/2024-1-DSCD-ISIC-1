@@ -112,6 +112,7 @@ for page in range(1, 151):
                         print(element.text)
                 except Exception as e:
                     driver.close()
+                    break
        
             driver.close()
             
