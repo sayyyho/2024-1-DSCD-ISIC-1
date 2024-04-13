@@ -47,21 +47,22 @@ for i in range(1,21):
         skills.append(skill.text)
     skills_lst.append(skills)
 
-    # user_button = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']')
-    # user_button.click()
-    # driver.switch_to.window(driver.window_handles[-1])
-    # try:
-    #     WebDriverWait(driver, 1).until(EC.alert_is_present())
-    #     alert = driver.switch_to.alert
-    #     alert.accept()
-    # except TimeoutException:
-    # # BeautifulSoup 객체 생성
-    #     page_source = driver.page_source
-    #     soup = BeautifulSoup(page_source, 'html.parser')
-    #
-    # finally:
-    #     time.sleep(1)
-    #     driver.switch_to.window(driver.window_handles[0])
+    user_button = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']')
+    user_button.click()
+    driver.switch_to.window(driver.window_handles[-1])
+    time.sleep(1)
+    try:
+        WebDriverWait(driver, 2).until(EC.alert_is_present())
+        alert = driver.switch_to.alert
+        alert.accept()
+    except TimeoutException:
+    # BeautifulSoup 객체 생성
+        page_source = driver.page_source
+        soup = BeautifulSoup(page_source, 'html.parser')
+
+    finally:
+        time.sleep(1)
+        driver.switch_to.window(driver.window_handles[0])
 
 print(sen_lst)
 print(skills_lst)
