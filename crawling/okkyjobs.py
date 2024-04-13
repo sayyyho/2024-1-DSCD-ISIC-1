@@ -29,8 +29,8 @@ skills_lst = []
 name_lst = []
 
 for i in range(1,21):
-    sentence = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/div[2]/div[1]')
-    sen_lst.append(sentence.text)
+    # sentence = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/div[2]/div[1]')
+    # sen_lst.append(sentence.text)
 
     xpath = '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/'
 
@@ -38,7 +38,7 @@ for i in range(1,21):
     sen_lst.append(sentence.text)
 
     name = driver.find_element(By.XPATH, xpath + 'div[1]/div[1]/div/div/div[1]/div[1]')
-    name_lst.append(name)
+    name_lst.append(name.text)
 
     # 대표 스킬들
     skills = []
@@ -47,19 +47,22 @@ for i in range(1,21):
         skills.append(skill.text)
     skills_lst.append(skills)
 
-    user_button = driver.find_element(By.XPATH,'//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']')
-    user_button.click()
-    driver.switch_to.window(driver.window_handles[0])
-    try:
-        WebDriverWait(driver, 1).until(EC.alert_is_present())
-        alert = driver.switch_to.alert
-        alert.accept()
-    except TimeoutException:
-    # BeautifulSoup 객체 생성
-        page_source = driver.page_source
-        soup = BeautifulSoup(page_source, 'html.parser')
-
-        
+    # user_button = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']')
+    # user_button.click()
+    # driver.switch_to.window(driver.window_handles[-1])
+    # try:
+    #     WebDriverWait(driver, 1).until(EC.alert_is_present())
+    #     alert = driver.switch_to.alert
+    #     alert.accept()
+    # except TimeoutException:
+    # # BeautifulSoup 객체 생성
+    #     page_source = driver.page_source
+    #     soup = BeautifulSoup(page_source, 'html.parser')
+    #
+    # finally:
+    #     time.sleep(1)
+    #     driver.switch_to.window(driver.window_handles[0])
 
 print(sen_lst)
 print(skills_lst)
+print(name_lst)
