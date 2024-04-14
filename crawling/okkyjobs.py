@@ -27,8 +27,9 @@ time.sleep(2)
 sen_lst = []
 skills_lst = []
 name_lst = []
+career_lst = []
 
-for i in range(1, 21):
+for i in range(1, 3):
     # sentence = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/div[2]/div[1]')
     # sen_lst.append(sentence.text)
 
@@ -49,6 +50,7 @@ for i in range(1, 21):
 
     user_button = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']')
     user_button.click()
+    driver.switch_to.window(driver.window_handles[-1])
     time.sleep(1)
 
     try:
@@ -71,13 +73,19 @@ for i in range(1, 21):
             skills.append(element.text)
         skills_lst.append(skills)
 
+    # 경력 가져오기
+        carrer_path = '//*[@id="__next"]/main/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/span[2]'
+        career = driver.find_element(By.XPATH, carrer_path)
+        career_lst.append(career.text)
+
     finally:
-        time.sleep(1)
         driver.back()
+        time.sleep(1)
 
 print(sen_lst)
 print(skills_lst)
 print(name_lst)
+print(career_lst)
 
 # WebDriver 종료
 driver.quit()
