@@ -28,42 +28,56 @@ sen_lst = []
 skills_lst = []
 name_lst = []
 
-for i in range(1,21):
+for i in range(1, 21):
     # sentence = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/div[2]/div[1]')
     # sen_lst.append(sentence.text)
 
     xpath = '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/'
 
-    sentence = driver.find_element(By.XPATH, xpath + 'div[2]/div[1]')
-    sen_lst.append(sentence.text)
-
     name = driver.find_element(By.XPATH, xpath + 'div[1]/div[1]/div/div/div[1]/div[1]')
     name_lst.append(name.text)
 
+    sentence = driver.find_element(By.XPATH, xpath + 'div[2]/div[1]')
+    sen_lst.append(sentence.text)
+
     # 대표 스킬들
-    skills = []
-    for j in range(1,5):
-        skill = driver.find_element(By.XPATH, xpath + 'div[3]/div[1]/span[' + str(j) + ']')
-        skills.append(skill.text)
-    skills_lst.append(skills)
+    # skills = []
+    # for j in range(1,5):
+    #     skill = driver.find_element(By.XPATH, xpath + 'div[3]/div[1]/span[' + str(j) + ']')
+    #     skills.append(skill.text)
+    # skills_lst.append(skills)
 
     user_button = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']')
     user_button.click()
-    driver.switch_to.window(driver.window_handles[-1])
     time.sleep(1)
+
     try:
-        WebDriverWait(driver, 2).until(EC.alert_is_present())
+        WebDriverWait(driver, 3).until(EC.alert_is_present())
         alert = driver.switch_to.alert
         alert.accept()
+
     except TimeoutException:
     # BeautifulSoup 객체 생성
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, 'html.parser')
 
+    # 기술 요소 선택
+        skill_element = soup.select_one('#__next > main > div > div > div.w-full.max-w-\[950px\] > div > div > div:nth-child(2) > div.w-full.divide-y.divide-gray-200 > div > div.flex.flex-wrap.items-center.justify-start.gap-x-2\.5.gap-y-2.text-sm')
+        # skill_element 에서 프런트엔드개발자를 가져옴 먼저
+        inner_elements = skill_element.find_all() 
+        
+        skills = []
+        for element in inner_elements:
+            skills.append(element.text)
+        skills_lst.append(skills)
+
     finally:
         time.sleep(1)
-        driver.switch_to.window(driver.window_handles[0])
+        driver.back()
 
 print(sen_lst)
 print(skills_lst)
 print(name_lst)
+
+# WebDriver 종료
+driver.quit()
