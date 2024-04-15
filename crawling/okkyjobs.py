@@ -8,9 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-from dotenv import load_dotenv
-import os
-import re
+import pandas as pd
 
 import time
 
@@ -19,31 +17,28 @@ okky_url = 'https://jobs.okky.kr/talents'
 driver.get(okky_url)
 time.sleep(2)
 
-# act = ActionChains(okky_url)  # 드라이버에 동작을 실행시키는 명령어를 act로 지정
-#
-# element1 = dr.find_element_by_css_selector('선택자')  # 동작 할 요소 선택
-# act.click(element1).perform()  # element1  클릭 동작을 수행
-
 sen_lst = []
 skills_lst = []
 name_lst = []
 career_lst = []
 
-for page in range(1,22):
+for page in range(1,21):
     print(page)
     for i in range(1, 21):
-        # sentence = driver.find_element(By.XPATH, '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/div[2]/div[1]')
-        # sen_lst.append(sentence.text)
 
-        try:
-            xpath = '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/'
-
+        xpath = '//*[@id="__next"]/main/div/div[3]/div[2]/button[' + str(i) + ']/div/'
+        try:        
             name = driver.find_element(By.XPATH, xpath + 'div[1]/div[1]/div/div/div[1]/div[1]')
             name_lst.append(name.text)
 
             sentence = driver.find_element(By.XPATH, xpath + 'div[2]/div[1]')
             sen_lst.append(sentence.text)
 
+        except ElementClickInterceptedException:
+            print(f"Element click intercepted at index {i}, trying again...")
+            time.sleep(1)
+            continue
+        
         except Exception as e:
             print(f"Error occurred at index {i}: {e}")
             break
@@ -61,7 +56,7 @@ for page in range(1,22):
         time.sleep(1)
 
         try:
-            WebDriverWait(driver, 3).until(EC.alert_is_present())
+            WebDriverWait(driver, 1).until(EC.alert_is_present())
             alert = driver.switch_to.alert
             alert.accept()
 
@@ -88,6 +83,11 @@ for page in range(1,22):
         finally:
             driver.back()
             time.sleep(1)
+            
+    page_path = '//*[@id="__next"]/main/div/div[3]/div[3]/nav/button[9]'
+    page_button = driver.find_element(By.XPATH, page_path)
+    page_button.click()
+    time.sleep(0.5)
 
 print(sen_lst)
 print(skills_lst)
@@ -96,3 +96,19 @@ print(career_lst)
 
 # WebDriver 종료
 driver.quit()
+
+assert len(name_lst) == len(skills_lst) == len(career_lst) == len(sen_lst), "not same for lenth with lists"
+
+# 데이터프레임 생성
+df = pd.DataFrame({
+    'name': name_lst,
+    'skills': skills_lst,
+    'field': career_lst,
+    'summary': sen_lst
+})
+
+# 데이터프레임 출력
+print(df)
+
+#df을 csv로 변환
+df.to_csv('okkyjobs.csv', index=False,encoding='utf-8')
