@@ -12,10 +12,11 @@ from dotenv import load_dotenv
 import os
 import re
 
+from processing import crawling_to_df
+
 # .env 파일 로드
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
-
 
 company_list = []
 spec_list = []
@@ -24,9 +25,13 @@ resume_list = []
 # Chrome WebDriver 경로 설정
 url = "https://ddp.dongguk.edu/login.jsp"
 
-# Selenium WebDriver로 Chrome 실행
+#Selenium WebDriver로 Chrome 실행
 driver = webdriver.Chrome()
 driver.get(url)
+
+# # .env 파일에 chromedrive 경로 설정
+# driver_path = os.getenv('CHROME_DRIVER_PATH')
+# driver = webdriver.Chrome(driver_path)
 
 
 
@@ -65,7 +70,7 @@ it_button.click()
 search_button = driver.find_element(By.XPATH, '//*[@id="searchForm"]/fieldset/button')
 search_button.click()
 
-for page in range(1, 151):
+for page in range(1, 50):
     print(page)
     for i in range(1, 11):
         # 각 tr 요소의 Xpath를 동적으로 생성
@@ -137,11 +142,16 @@ for page in range(1, 151):
     page_button = driver.find_element(By.XPATH, page_path)
     page_button.click()    
 
+# print(company_list)
+# print(spec_list)
 print(company_list)
 print(spec_list)
 print(resume_list)
 
 time.sleep(5)
 
-# # WebDriver 종료
+# WebDriver 종료
+# crawling_df = crawling_to_df(spec_list,company_list)
+# crawling_df.to_excel('output_page_50.xlsx', index=False)
 driver.quit()
+
