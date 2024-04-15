@@ -120,6 +120,7 @@ for page in range(1, 50):
                         print(element.text)
                 except Exception as e:
                     driver.close()
+                    break
        
             driver.close()
             
