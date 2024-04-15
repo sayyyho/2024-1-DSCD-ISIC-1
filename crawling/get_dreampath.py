@@ -8,13 +8,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-
 from dotenv import load_dotenv
 import os
 import re
 
 # .env 파일 로드
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 
 company_list = []
 spec_list = []
@@ -31,8 +32,10 @@ driver.get(url)
 
 # 로그인 정보
 # .env파일 만들어서 학번이랑 비번 입력해주세요!
-username = os.getenv('USERNAME')
-password = os.getenv('PASSWORD')
+username = os.getenv('DONGDUK_USERNAME')
+password = os.getenv('DONGDUK_PASSWORD')
+print("Username:", os.getenv('DONGDUK_USERNAME'))
+print("Password:", os.getenv('DONGDUK_PASSWORD'))
 
 
 # 아이디 입력란에 입력 후 엔터
@@ -73,11 +76,18 @@ for page in range(1, 151):
         company_button.click()
         driver.switch_to.window(driver.window_handles[1])
         try:
-            WebDriverWait(driver, 1).until(EC.alert_is_present())
+            WebDriverWait(driver, 10).until(EC.alert_is_present())
             alert = driver.switch_to.alert
-            alert.accept()
+            # 경고창의 메시지를 확인
+            if "존재하지 않는 데이터입니다. 코드를 확인해 주십시오!" in alert.text:
+                alert.accept()  # 경고창 닫기
+                driver.close()  # 현재 창 닫기
+                driver.switch_to.window(driver.window_handles[0])  # 메인 윈도우로 전환
+                continue  # 다음 company_button으로 이동
+            else:
+                alert.accept()  # 다른 경고의 경우 단순히 경고창 닫기
         except TimeoutException:
-        # BeautifulSoup 객체 생성
+            # BeautifulSoup 객체 생성
             page_source = driver.page_source
             soup = BeautifulSoup(page_source, 'html.parser')
 
