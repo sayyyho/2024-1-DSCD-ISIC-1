@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import * as S from "./LoginForm.styled";
 import { Input } from "../common/Input";
@@ -6,12 +7,16 @@ import { Text } from "../common/Text";
 import { Artice } from "../Article";
 import { postLogin } from "@/apis/login";
 import { RequestLoginParams } from "@/types/auth";
+import { useRecoilState } from "recoil";
+import { userState } from "@/atoms/auth";
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const [user, setUser] = useState<RequestLoginParams>({
     username: "",
     password: "",
   });
+
+  const [userStatus, setUserStatus] = useRecoilState(userState);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser((cur: RequestLoginParams) => ({
@@ -24,6 +29,8 @@ export const LoginForm = () => {
     postLogin(user)
       .then((response) => {
         console.log(response);
+        setUserStatus(true);
+        localStorage.setItem("key", response.data.key);
       })
       .catch((error) => {
         console.error(error);
@@ -31,6 +38,7 @@ export const LoginForm = () => {
   };
   return (
     <S.Wrapper>
+      {userStatus && <Navigate to={"/"} replace={true}></Navigate>}
       <S.LoginFrame>
         <Input
           width="80%"
@@ -66,3 +74,5 @@ export const LoginForm = () => {
     </S.Wrapper>
   );
 };
+
+export { LoginForm };
