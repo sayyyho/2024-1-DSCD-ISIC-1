@@ -11,13 +11,14 @@ import { useRecoilState } from "recoil";
 import { userState } from "@/atoms/auth";
 
 const LoginForm = () => {
+
+export const LoginForm = () => {
   const [user, setUser] = useState<RequestLoginParams>({
     username: "",
     password: "",
   });
 
   const [userStatus, setUserStatus] = useRecoilState(userState);
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser((cur: RequestLoginParams) => ({
       ...cur,
@@ -28,7 +29,6 @@ const LoginForm = () => {
   const handleLogin = () => {
     postLogin(user)
       .then((response) => {
-        console.log(response);
         setUserStatus(true);
         localStorage.setItem("key", response.data.key);
       })
