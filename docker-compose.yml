@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+
+    env_file:
+      - ./server/.env
+
+    # environment:
+    #   - POSTGRES_DB:${DB_NAME}
+    #   - POSTGRES_USER:${DB_USER}
+    #   - POSTGRES_PASSWORD:${DB_PASSWORD}
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - ./client:/app/frontend
+
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+
+    env_file:
+      - ./server/.env
+
+    # environment:
+    #   - DB_NAME=${DB_NAME}
+    #   - DB_USER=${DB_USER}
+    #   - DB_PASSWORD=${DB_PASSWORD}
+    #   - DB_HOST=db
+    #   - DB_PORT=${DB_PORT}
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./server:/app/backend
+
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
