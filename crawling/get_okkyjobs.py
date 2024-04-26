@@ -61,11 +61,11 @@ for page in range(1,21):
             alert.accept()
 
         except TimeoutException:
-        # BeautifulSoup 객체 생성
+            # BeautifulSoup 객체 생성
             page_source = driver.page_source
             soup = BeautifulSoup(page_source, 'html.parser')
 
-        # 기술 요소 선택
+            # 기술 요소 선택
             skill_element = soup.select_one('#__next > main > div > div > div.w-full.max-w-\[950px\] > div > div > div:nth-child(2) > div.w-full.divide-y.divide-gray-200 > div > div.flex.flex-wrap.items-center.justify-start.gap-x-2\.5.gap-y-2.text-sm')
             # skill_element 에서 프런트엔드개발자를 가져옴 먼저
             inner_elements = skill_element.find_all() 
@@ -75,7 +75,7 @@ for page in range(1,21):
                 skills.append(element.text)
             skills_lst.append(skills)
 
-        # 경력 가져오기
+            # 경력 가져오기
             carrer_path = '//*[@id="__next"]/main/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/span[2]'
             career = driver.find_element(By.XPATH, carrer_path)
             career_lst.append(career.text)
