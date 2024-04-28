@@ -1,3 +1,5 @@
+# NB 함수만 있는 모듈 파일입니다.
+
 import re
 import nltk
 from nltk.corpus import stopwords
