@@ -1,3 +1,5 @@
+# NB 전체 코드 입니다 >>> 일단은 전체 코드로 짜놓고 main.py 와 modele.py 로 나눴습니다.
+
 import os  
 import warnings
 warnings.filterwarnings('ignore')
@@ -14,7 +16,9 @@ from nltk.corpus import wordnet
 from sklearn.preprocessing import LabelEncoder 
 from sklearn.model_selection import train_test_split 
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score  
 from sklearn.naive_bayes import MultinomialNB
 
