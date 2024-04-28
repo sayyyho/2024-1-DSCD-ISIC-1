@@ -1,3 +1,5 @@
+# NB 실행 파일입니다.
+
 import warnings
 warnings.filterwarnings('ignore')
 import pandas as pd
