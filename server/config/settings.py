@@ -28,7 +28,7 @@ environ.Env.read_env(env_file = os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
+    'corsheaders',
 
     # 앱
     "accounts", # 유저 정보 관련 기능
@@ -84,6 +85,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입 과정에서 이메일 인증 사용 X
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", # CORS 관련 추가
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -147,6 +149,35 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# CORS 설정 추가
+CORS_ALLOW_ALL_ORIGINS = True #(모든 포트 허용)
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+]
+
+#HTTP methods 추가
+CORS_ALLOW_METHODS = (
+"DELETE",
+"GET",
+"OPTIONS",
+"PATCH",
+"POST",
+"PUT",
+)
+
+#원하는 헤더 추가
+CORS_ALLOW_HEADERS = (
+"accept",
+"authorization",
+"content-type",
+"user-agent",
+"x-csrftoken",
+"x-requested-with",
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
