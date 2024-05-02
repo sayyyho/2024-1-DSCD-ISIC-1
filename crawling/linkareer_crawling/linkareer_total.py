@@ -19,7 +19,7 @@ while True:
     person = linkareer.self_introduction(driver=driver, url=txt_link)
     df = pd.concat([df,person])
     
-    df.to_csv('output.csv', encoding='utf-8')
+    df.to_csv('output.csv', encoding='utf-8-sig')
     
 driver.close()
 f.close()
