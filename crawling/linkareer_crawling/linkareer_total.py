@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import linkareer
 import pandas as pd
 
-url=".\linkareer_link.txt"
+url="linkareer_link.txt"
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 df = pd.DataFrame(columns=['info', 'specification', 'self_intro'])
 
