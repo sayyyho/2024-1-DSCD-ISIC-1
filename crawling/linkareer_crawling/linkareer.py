@@ -6,8 +6,7 @@ import os
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAI
-
-max_tokens = 3500
+from transformers import GPT2Tokenizer
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -22,10 +21,21 @@ prompt = PromptTemplate(template=prompt_template,
                         input_variables=['self_introduction'])
 
 # 토큰 수 제한 함수
-def limit_string_tokens(string):
-    tokens = string.split()[:max_tokens]
-    return ' '.join(tokens)
-
+def truncate_to_token_limit(text, max_tokens=4096):
+    # 토크나이저 초기화
+    tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+    
+    # 텍스트를 토큰으로 변환
+    tokens = tokenizer.tokenize(text)
+    
+    # 토큰의 수가 제한을 초과하는 경우, 제한 내로 자르기
+    if len(tokens) > max_tokens:
+        tokens = tokens[:max_tokens]
+    
+    # 토큰을 다시 텍스트로 변환
+    truncated_text = tokenizer.convert_tokens_to_string(tokens)
+    
+    return truncated_text
 # url 크롤링 함수
 def url_crawl(driver:webdriver.Chrome):
     url_list = []
@@ -62,9 +72,9 @@ def self_introduction(driver:webdriver.Chrome,url):
         person['specification'] = specification.text # 지원자 스펙
         
         llm_chain = LLMChain(prompt=prompt, llm=llm)
-        print(len(limit_string_tokens(content.text)))
+        print(len(truncate_to_token_limit(content.text)))
         
-        inputs = {'self_introduction' : limit_string_tokens(content.text)} # 지원자 자소서 분석
+        inputs = {'self_introduction' : truncate_to_token_limit(content.text)} # 지원자 자소서 분석
         person['self_intro'] = llm_chain.invoke(inputs)['text']
         dataset.append(person)
         
