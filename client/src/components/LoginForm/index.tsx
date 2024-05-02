@@ -1,44 +1,15 @@
-import { Navigate } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
 import * as S from "./LoginForm.styled";
 import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 import { Text } from "../common/Text";
 import { Artice } from "../Article";
-import { postLogin } from "@/apis/login";
-import { RequestLoginParams } from "@/types/auth";
-import { useRecoilState } from "recoil";
-import { userState } from "@/atoms/auth";
 
-const LoginForm = () => {
-
-export const LoginForm = () => {
-  const [user, setUser] = useState<RequestLoginParams>({
-    username: "",
-    password: "",
-  });
-
-  const [userStatus, setUserStatus] = useRecoilState(userState);
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUser((cur: RequestLoginParams) => ({
-      ...cur,
-      [e.target.name]: e.target.value,
-    }));
-    console.log(user);
-  };
-  const handleLogin = () => {
-    postLogin(user)
-      .then((response) => {
-        setUserStatus(true);
-        localStorage.setItem("key", response.data.key);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+export const LoginForm = (props: {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLogin: () => void;
+}) => {
   return (
     <S.Wrapper>
-      {userStatus && <Navigate to={"/"} replace={true}></Navigate>}
       <S.LoginFrame>
         <Input
           width="80%"
@@ -47,7 +18,7 @@ export const LoginForm = () => {
           type="text"
           radius="8px"
           name="username"
-          onChange={onChange}
+          onChange={props.onChange}
         />
         <Input
           width="80%"
@@ -56,14 +27,14 @@ export const LoginForm = () => {
           type="password"
           radius="8px"
           name="password"
-          onChange={onChange}
+          onChange={props.onChange}
         />
         <Button
           width="80%"
           height="20%"
           radius="105px"
           color="white"
-          onClick={handleLogin}
+          onClick={props.handleLogin}
         >
           <Text size="1rem" color="white">
             Login
@@ -74,5 +45,3 @@ export const LoginForm = () => {
     </S.Wrapper>
   );
 };
-
-export { LoginForm };
