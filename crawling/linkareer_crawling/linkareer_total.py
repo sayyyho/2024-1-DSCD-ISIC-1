@@ -7,20 +7,19 @@ from webdriver_manager.chrome import ChromeDriverManager
 import linkareer
 import pandas as pd
 
-url=".\linkareer_link.txt"
+url="linkareer_link.txt"
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 df = pd.DataFrame(columns=['info', 'specification', 'self_intro'])
 
-#linkareer.url_crawl(driver=driver)
 f=open(url,'r')
 while True:
     txt_link = f.readline()
     if txt_link=="":
         break
-    person = linkareer.self_introduction(driver=driver,url=txt_link)
+    person = linkareer.self_introduction(driver=driver, url=txt_link)
     df = pd.concat([df,person])
     
-    df.to_csv('output.csv', encoding='utf-8')
+    df.to_csv('output.csv', encoding='utf-8-sig')
     
 driver.close()
 f.close()
