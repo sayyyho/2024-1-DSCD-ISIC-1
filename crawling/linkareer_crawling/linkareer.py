@@ -12,8 +12,11 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 llm = OpenAI(model_name="gpt-3.5-turbo-instruct")
 
-prompt_template = """{self_introduction}, in this applicant You should extract key skills without abstract expressions and summarize in one line.
-                    ex) python, java, Opic IM2, TOEIC 800
+prompt_template = """{self_introduction}, in this applicant You should extract key skills.
+                    You shuld summarize only the technologies related to the development skills.
+                    You should exclude abstract expressions.
+                    Summarize key skills into 10 keywords.
+                    When separating keywords, do not number them but separate them with commas.
                     """
                     
 
@@ -72,7 +75,6 @@ def self_introduction(driver:webdriver.Chrome,url):
         person['specification'] = specification.text # 지원자 스펙
         
         llm_chain = LLMChain(prompt=prompt, llm=llm)
-        print(len(truncate_to_token_limit(content.text)))
         
         inputs = {'self_introduction' : truncate_to_token_limit(content.text)} # 지원자 자소서 분석
         person['self_intro'] = llm_chain.invoke(inputs)['text']
