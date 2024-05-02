@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,7 +14,8 @@ import re
 from processing import crawling_to_df
 
 # .env 파일 로드
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), '../.env')
+# dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 company_list = []
@@ -155,3 +155,11 @@ time.sleep(5)
 # crawling_df.to_excel('output_page_50.xlsx', index=False)
 driver.quit()
 
+
+# 회사도 있으면 가져오고 없으면 pass
+# /html/body/div[5]/div[9]/div[2]/div[1]/section[1]/div/div[2]/a
+
+# 프로젝트 있으면 가져오고 없으면 pass
+# //*[@id="people-project-item-403616"]/div/div[2]/div[2]/strong
+
+# 자격증도 있으면 가져오고 없으면 pass
