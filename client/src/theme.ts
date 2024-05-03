@@ -22,8 +22,8 @@ declare module "styled-components" {
 const colors = {
   white: "#ffffff",
   black: "#000000",
-  main: "#f2efe5",
-  sub: "#f5f5f5",
+  main: "#FEF9EB",
+  sub: "#F3E1B0",
   btnDefault: "#4D3E3E",
   btnSelect: "#bed1cf",
   confirm: "#ffe4c9",
