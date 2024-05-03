@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import os
 import time
+import re
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
@@ -34,12 +35,62 @@ def find_name(soup):
         return "알 수 없음"
 def find_company(soup):
     try:
-        company = soup.select_one('#people-career > div > div:nth-of-type(2) > div:nth-of-type(2) > a')
-        return company
+        company = soup.select_one('#people-career > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > a')
+        return company.text
     except Exception as e:
         print(e)
         return "구직중"
+def find_school(soup):
+    try:
+        school_name = soup.select_one('#people-education > div >  div:nth-of-type(2) >  div:nth-of-type(2) >  div:nth-of-type(1)')
+        major = soup.select_one('#people-education > div >  div:nth-of-type(2) >  div:nth-of-type(2) >  div:nth-of-type(2)')
+        if school_name and major:
+            return [school_name.text.strip(), major.text.strip()]
+        else:
+            return ["미공개"]
+    except Exception as e:
+        print(e)
+        return ["미공개"]
 
+def find_project(soup):
+    try:
+        projects = []
+        project = soup.select_one('#people-project > div')
+        if project:
+            items = project.find_all('div', class_='item')
+            for item in items:
+                project_info = item.find('div', class_="desc")
+                project_info = project_info.text
+                projects.append(project_info.strip())
+        return projects
+    except Exception as e:
+        print(e)
+        return ["프로젝트 경험 없음"]
+def find_award(soup):
+    try:
+        awards = []
+        award = soup.select_one('#people-award > div')
+        if award:
+            items = award.find_all('div', class_='item')
+            for item in items:
+                award_name = item.find('div', class_="title")
+                awards.append(award_name.text.replace('\xa0', ' '))
+        return awards
+    except Exception as e:
+        print(e)
+        return ["수상 경험 없음"]
+    
+def find_certification(soup):
+    try:
+        certifications = []
+        certification = soup.select_one('#people-certification > div')
+        items = certification.find_all('div', class_='item')
+        for item in items:
+                certification_name = item.find('div', class_="title")
+                certifications.append(certification_name.text.strip())
+        return certifications
+    except Exception as e:
+        return ["자격증 없음"]
 
 login_button = driver.find_element(By.XPATH, '//*[@id="main-menu"]/div[2]/a[1]')
 login_button.click()
@@ -60,95 +111,48 @@ login_button.click()
 
 time.sleep(1)
 
-# skip_button = driver.find_element(By.XPATH, '/html/body/div[5]/div[5]/div[2]/div[2]/a[2]')
-# skip_button.click()
 
-# time.sleep(2)
-
-driver.get("https://www.rocketpunch.com/people?page=2&specialty=devops&job=4&job=6")
+driver.get("https://www.rocketpunch.com/people?job=4&job=6&specialty=devops")
 
 time.sleep(3)
 
 
-
-for i in range(1, 21):  # 1부터 20까지 (20개의 요소를 가정)
-    data = {
-        "name" : "",
-        "company" : "",
-        "school" : "",
-        "project" : [],
-        "certification" : []
-    }
-    element_xpath = f"//*[@id='search-results']/div[1]/div[{i}]/div[1]/a"
-    element = driver.find_element(By.XPATH, element_xpath)
-    element.click()
-    # 클릭 후 충분한 반응 시간 대기 (필요한 경우)
-    time.sleep(1)  # 예: 각 클릭 사이에 1초간 대기
+for page in range(1,6):
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'html.parser')
-    name = find_name(soup)
-    data['name'] = name.strip()
-    company = find_company(soup)
-    print(company)
-    # total_data.append(data)
-    # print(i)
-    print(data)
-    driver.back()
-
+    for i in range(1, 21):    
+        data = {
+            "name" : "",
+            "company" : "",
+            "school" : [],
+            "projects" : [],
+            "award" : [],
+            "certification" : []
+        }
+        element_xpath = f"//*[@id='search-results']/div[1]/div[{i}]/div[1]/a"
+        element = driver.find_element(By.XPATH, element_xpath)
+        element.click()
+        # 클릭 후 충분한 반응 시간 대기 (필요한 경우)
+        time.sleep(2)  # 예: 각 클릭 사이에 1초간 대기
+        page_source = driver.page_source
+        soup = BeautifulSoup(page_source, 'html.parser')  
+        name = find_name(soup)
+        data['name'] = name.strip()
+        company = find_company(soup)
+        data["company"] = company.strip()
+        school_info = find_school(soup)
+        data["school"] = school_info
+        projects = find_project(soup)
+        data['projects'] = projects
+        awards = find_award(soup)
+        data['award'] = awards
+        certification = find_certification(soup)
+        data['certification'] = certification
+        total_data.append(data)
+        print(data)
+        driver.back()
+    driver.get(f"https://www.rocketpunch.com/people?page={page+1}&job=4&job=6&specialty=devops")
+    time.sleep(2)
+    # print(total_data)   
 
 driver.quit()
-
-# //*[@id="search-results"]/div[1]/div[1]/div[1]/a
-# //*[@id="search-results"]/div[1]/div[2]/div[1]/a
-
-
-# 아래는 그냥 함수화
-
-
-# 회사도 있으면 가져오고 없으면 pass
-# /html/body/div[5]/div[9]/div[2]/div[1]/section[1]/div/div[2]/a
-
-# 학력도
-
-# 프로젝트 있으면 가져오고 없으면 pass
-# //*[@id="people-project-item-403616"]/div/div[2]/div[2]/strong
-
-# 자격증도 있으면 가져오고 없으면 pass
-
-# 활동분야도
-
-# 이름
-# //*[@id="people-header"]/div[3]/div/div[2]/h1
-
-
-
-
-
-
-
-
-
-
-
-
-# driver.find_element(By.XPATH, '')
-
-# people_btn = driver.find_element(By.XPATH, '//*[@id="main-menu"]/a[1]')
-# people_btn.click()
-
-# time.sleep(2)
-
-
-# category_btn = driver.find_element(By.XPATH, '//*[@id="search-form"]/div[1]/div[3]/div[1]')
-# category_btn.click()
-
-# time.sleep(1)
-
-# category_input = driver.find_element(By.XPATH, '//*[@id="search-form"]/div[1]/div[3]/div[2]/div/div[1]/input')
-# time.sleep(1)
-
-# category_input.send_keys("devops")
-
-# //*[@id="search-form"]/div[1]/div[3]/div[2]/div/div[2]/a[7]
-# category_select = driver.find_element(By.XPATH, '//*[@id="search-form"]/div[1]/div[3]/div[2]/div/div[2]/a[7]')
-# category_select.click()
