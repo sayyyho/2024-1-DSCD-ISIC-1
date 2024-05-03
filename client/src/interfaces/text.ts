@@ -3,4 +3,5 @@ export interface TextProps {
   size: string;
   children: React.ReactNode;
   decoration?: string;
+  padding?: string;
 }

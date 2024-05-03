@@ -6,6 +6,7 @@ export const Box = styled.div<BoxProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: ${(props) => `${props.width}`};
   height: ${(props) => `${props.height}`};
   margin: ${(props) => (props.margin ? `${props.margin}` : 0)};
@@ -13,7 +14,7 @@ export const Box = styled.div<BoxProps>`
   background-color: ${(props) =>
     props.backgroundColor
       ? `${props.backgroundColor}`
-      : `${theme.colors.main}`};
+      : `${theme.colors.boxSub}`};
   border-radius: ${(props) => (props.radius ? `${props.radius}` : 0)};
   /* 17px 17px */
 `;
