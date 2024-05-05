@@ -14,7 +14,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 
-from nb_module import *
+from models.ml_predict.nb_module import *
 
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
