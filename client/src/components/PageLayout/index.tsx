@@ -1,9 +1,6 @@
 import * as S from "@/components/PageLayout/PageLayout.styled";
+import { WrapperProps } from "@/interfaces/wrapper";
 
-interface Props {
-  children?: React.ReactNode;
-}
-
-export const PageLayout = (props: Props) => {
-  return <S.Wrapper>{props.children}</S.Wrapper>;
+export const PageLayout = (props: WrapperProps) => {
+  return <S.Wrapper gap={props.gap}>{props.children}</S.Wrapper>;
 };
