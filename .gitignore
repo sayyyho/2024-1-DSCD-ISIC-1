@@ -1,3 +1,10 @@
 .DS_Store
 data/
 models/* .csv
+venv/
+chromedriver.exe
+__pycache__/
+requirements.txt
+.env
+.cache
+models/kor_base/koelectra+eda.ipynb

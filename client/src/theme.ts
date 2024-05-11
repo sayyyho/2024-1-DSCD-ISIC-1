@@ -7,6 +7,7 @@ declare module "styled-components" {
     | "black"
     | "main"
     | "sub"
+    | "boxSub"
     | "btnDefault"
     | "btnSelect"
     | "confirm";
@@ -22,10 +23,11 @@ declare module "styled-components" {
 const colors = {
   white: "#ffffff",
   black: "#000000",
-  main: "#f2efe5",
-  sub: "#f5f5f5",
+  main: "#FEF9EB",
+  sub: "#F3E1B0",
   btnDefault: "#4D3E3E",
   btnSelect: "#bed1cf",
+  boxSub: "rgba(107, 119, 154, 0.05)",
   confirm: "#ffe4c9",
 };
 const theme: DefaultTheme = {
