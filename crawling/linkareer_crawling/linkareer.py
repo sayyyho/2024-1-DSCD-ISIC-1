@@ -42,11 +42,11 @@ def truncate_to_token_limit(text, max_tokens=4096):
 # url 크롤링 함수
 def url_crawl(driver:webdriver.Chrome):
     url_list = []
-    f=open(".\linkareer_link.txt",'w')
-    for page in range(1,8):
-        url = "https://linkareer.com/cover-letter/search?page="+str(page)+"&role=데이터분석&sort=RELEVANCE&tab=all"
+    f=open(".\linkareer_pm.txt",'w')
+    for page in range(1,33):
+        url = "https://linkareer.com/cover-letter/search?page="+str(page)+"&it%20기획&sort=RELEVANCE&tab=all"
         driver.get(url)
-        driver.find_element(By.XPATH,"/html/body/div[1]/div[1]/div/div[4]/div/div[2]/div/div[3]/div[1]/div[31]/div[1]/a/div/div/p[2]")
+        driver.find_element(By.XPATH,"/html/body/div[1]/div[1]/div/div[4]/div/div[2]/div/div[3]/div[1]/div[1]/div[1]/a/div/div/p[2]") 
         driver.implicitly_wait(5)
         url_tag = driver.find_elements(By.TAG_NAME,'a')
         for tag in url_tag:

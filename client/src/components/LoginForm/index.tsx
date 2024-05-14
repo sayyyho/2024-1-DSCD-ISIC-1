@@ -3,13 +3,20 @@ import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 import { Text } from "../common/Text";
 import { Artice } from "../Article";
+import { Box } from "../common/Box";
 
 export const LoginForm = (props: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLogin: () => void;
 }) => {
   return (
-    <S.Wrapper>
+    <Box
+      width="100%"
+      height="50%"
+      backgroundColor={"#F3E1B0"}
+      padding="10% 0 0 0"
+      radius="17px 17px 0 0"
+    >
       <S.LoginFrame>
         <Input
           width="80%"
@@ -42,6 +49,6 @@ export const LoginForm = (props: {
         </Button>
       </S.LoginFrame>
       <Artice></Artice>
-    </S.Wrapper>
+    </Box>
   );
 };

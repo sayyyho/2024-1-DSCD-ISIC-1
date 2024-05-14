@@ -18,20 +18,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-
-    ports:
-      - "3000:3000"
-
-    volumes:
-      - ./client:/app/frontend
-
-    depends_on:
-      - backend
-
   backend:
     build:
       context: ./server
