@@ -1,5 +1,4 @@
 .DS_Store
-<<<<<<< HEAD
 data/
 models/*.csv
 text_similarity/*.csv
