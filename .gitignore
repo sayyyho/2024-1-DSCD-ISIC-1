@@ -1,4 +1,7 @@
 .DS_Store
+data/
+models/*.csv
+text_similarity/*.csv
 models/* .csv
 models/gpt/data/
 venv/
@@ -9,3 +12,4 @@ requirements.txt
 .cache
 models/kor_base/koelectra+eda.ipynb
 models/kor_base/models
+
