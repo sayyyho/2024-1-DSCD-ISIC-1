@@ -12,6 +12,8 @@ export const Box = (props: BoxProps) => {
       color={props.color}
       fontSize={props.fontSize}
       backgroundColor={props.backgroundColor}
+      flexDirection={props.flexDirection}
+      justifyProps={props.justifyProps}
     >
       {props.children}
     </S.Box>
