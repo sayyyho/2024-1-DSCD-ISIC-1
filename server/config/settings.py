@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'corsheaders',
+    'sslserver',
 
     # 앱
     "accounts", # 유저 정보 관련 기능
