@@ -4,4 +4,5 @@ export interface TextProps {
   children: React.ReactNode;
   decoration?: string;
   padding?: string;
+  selfProps?: string;
 }
