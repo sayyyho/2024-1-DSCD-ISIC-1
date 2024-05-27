@@ -4,11 +4,11 @@ export interface BoxProps {
   height: string;
   margin?: string;
   border?: string;
-  padding?: string;
+  $padding?: string;
   radius?: string;
-  backgroundColor?: string;
+  $backgroundColor?: string;
   color?: string;
   fontSize?: number;
-  flexDirection?: string;
-  justifyProps?: string;
+  $flexDirection?: string;
+  $justifyProps?: string;
 }

@@ -4,11 +4,10 @@ import { ButtonProps } from "@/interfaces/button";
 
 export const Button = styled.button<ButtonProps>`
   border: 0;
-  background: ${theme.colors.btnDefault};
   background-color: ${(props) =>
-    props.$status
-      ? `${theme.colors.btnSelect}`
-      : `${theme.colors[props.type]}`};
+    props.backgroundColor
+      ? `${props.backgroundColor}`
+      : `${theme.colors.btnDefault}`};
   width: ${(props) => `${props.width}`};
   height: ${(props) => `${props.height}`};
   margin: ${(props) => (props.margin ? `${props.margin}` : 0)};
