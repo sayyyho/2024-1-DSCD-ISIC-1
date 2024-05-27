@@ -11,7 +11,7 @@ export const Button = (props: ButtonProps) => {
       padding={props.padding}
       radius={props.radius}
       onClick={props.onClick}
-      background={props.background}
+      backgroundColor={props.backgroundColor}
       disabled={props.disabled}
       color={props.color}
       fontSize={props.fontSize}

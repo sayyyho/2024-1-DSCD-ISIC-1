@@ -13,8 +13,8 @@ export const LoginForm = (props: {
     <Box
       width="100%"
       height="50%"
-      backgroundColor={"#F3E1B0"}
-      padding="10% 0 0 0"
+      $backgroundColor={"#F3E1B0"}
+      $padding="10% 0 0 0"
       radius="17px 17px 0 0"
     >
       <S.LoginFrame>
@@ -22,8 +22,8 @@ export const LoginForm = (props: {
           width="80%"
           height="20%"
           defaultString="아이디"
-          type="text"
-          radius="8px"
+          $type="text"
+          $radius="8px"
           name="username"
           onChange={props.onChange}
         />
@@ -31,8 +31,8 @@ export const LoginForm = (props: {
           width="80%"
           height="20%"
           defaultString="비밀번호"
-          type="password"
-          radius="8px"
+          $type="password"
+          $radius="8px"
           name="password"
           onChange={props.onChange}
         />

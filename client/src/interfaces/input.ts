@@ -2,8 +2,8 @@ export interface InputProps {
   width: string;
   height: string;
   defaultString?: string;
-  type: string;
-  radius?: string;
+  $type: string;
+  $radius?: string;
   name?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
