@@ -33,11 +33,5 @@ body  {
     height: 100%;
     width: 100%;
   }
-  @media (min-height: 700px) {
-    body {
-      width: 430px;
-      height: 700px;
-    }
-  }
 
 `;

@@ -12,4 +12,5 @@ export interface ButtonProps {
   backgroundColor?: string;
   color?: string;
   fontSize?: number;
+  name?: string;
 }
