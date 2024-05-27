@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
@@ -6,8 +7,42 @@ import { Wrapper } from "@/components/common/Wrapper";
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 import BACK from "@/assets/images/back.svg";
+import { RequestSignUpParams } from "@/types/auth";
+import { postSignUp } from "@/apis/signUp";
+
 export const SignUp = () => {
   const navigate = useNavigate();
+  const [status, setStatus] = useState<boolean>(true);
+  const [user, setUser] = useState<RequestSignUpParams>({
+    username: "",
+    password1: "",
+    password2: "",
+    last_name: "",
+    first_name: "",
+    sex: "남자",
+    email: "",
+    phone_number: "",
+  });
+  const handleStatus = () => {
+    setStatus((cur) => !cur);
+    setUser((cur: RequestSignUpParams) => ({
+      ...cur,
+      sex: status ? "여자" : "남자",
+    }));
+    console.log(user);
+  };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser((cur: RequestSignUpParams) => ({
+      ...cur,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(user);
+  };
+  const onSubmit = () => {
+    postSignUp(user)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   return (
     <PageLayout $justifyContent="start">
       <Header>
@@ -40,18 +75,8 @@ export const SignUp = () => {
           defaultString="jang99"
           $type="text"
           $radius="6px"
-          name="id"
-        />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          이메일
-        </Text>
-        <Input
-          width="98%"
-          height="35px"
-          defaultString="323psh@dongguk.edu"
-          $type="text"
-          $radius="6px"
-          name="email"
+          name="username"
+          onChange={onChange}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           비밀번호
@@ -62,7 +87,8 @@ export const SignUp = () => {
           defaultString="⦁⦁⦁⦁⦁⦁⦁⦁⦁⦁"
           $type="password"
           $radius="6px"
-          name="password"
+          name="password1"
+          onChange={onChange}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           비밀번호 확인
@@ -73,29 +99,9 @@ export const SignUp = () => {
           defaultString="⦁⦁⦁⦁⦁⦁⦁⦁⦁⦁"
           $type="password"
           $radius="6px"
-          name="password-check"
+          name="password2"
+          onChange={onChange}
         />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          성별
-        </Text>
-        <Wrapper width="100%" $isFlex={true} $justifyContent="space-between">
-          <Button
-            width="48%"
-            height="35px"
-            backgroundColor="rgba(25, 33, 61, 0.08)"
-            radius="6px"
-          >
-            남자
-          </Button>
-          <Button
-            width="48%"
-            height="35px"
-            backgroundColor="rgba(25, 33, 61, 0.08)"
-            radius="6px"
-          >
-            여자
-          </Button>
-        </Wrapper>
         <Text color="black" size="16px" $selfProps="flex-start">
           성
         </Text>
@@ -105,7 +111,8 @@ export const SignUp = () => {
           defaultString="홍"
           $type="text"
           $radius="6px"
-          name="gender"
+          name="first_name"
+          onChange={onChange}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           이름
@@ -116,9 +123,48 @@ export const SignUp = () => {
           defaultString="길동"
           $type="text"
           $radius="6px"
-          name="last-name"
+          name="last_name"
+          onChange={onChange}
         />
-
+        <Text color="black" size="16px" $selfProps="flex-start">
+          성별
+        </Text>
+        <Wrapper width="100%" $isFlex={true} $justifyContent="space-between">
+          <Button
+            width="48%"
+            height="35px"
+            backgroundColor="rgba(25, 33, 61, 0.08)"
+            radius="6px"
+            name="sex"
+            $status={status}
+            onClick={handleStatus}
+          >
+            남자
+          </Button>
+          <Button
+            width="48%"
+            height="35px"
+            backgroundColor="rgba(25, 33, 61, 0.08)"
+            radius="6px"
+            name="sex"
+            $status={!status}
+            onClick={handleStatus}
+          >
+            여자
+          </Button>
+        </Wrapper>
+        <Text color="black" size="16px" $selfProps="flex-start">
+          이메일
+        </Text>
+        <Input
+          width="98%"
+          height="35px"
+          defaultString="323psh@dongguk.edu"
+          $type="text"
+          $radius="6px"
+          name="email"
+          onChange={onChange}
+        />
         <Text color="black" size="16px" $selfProps="flex-start">
           전화번호
         </Text>
@@ -128,7 +174,8 @@ export const SignUp = () => {
           defaultString="01012341234"
           $type="text"
           $radius="6px"
-          name="phone"
+          name="phone_number"
+          onChange={onChange}
         />
         <Button
           margin="20px 0px 0px 0px"
@@ -136,6 +183,8 @@ export const SignUp = () => {
           height="50px"
           backgroundColor="#4D3E3E"
           radius="5px"
+          color="white"
+          onClick={onSubmit}
         >
           회원가입
         </Button>

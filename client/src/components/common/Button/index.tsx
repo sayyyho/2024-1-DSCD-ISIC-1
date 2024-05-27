@@ -5,6 +5,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <S.Button
       width={props.width}
+      name={props.name}
       height={props.height}
       $status={props.$status}
       margin={props.margin}
