@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from allauth.account.adapter import get_adapter
-from .models import User
+from .models import User, Profile
 
 class CustomRegisterSerializer(RegisterSerializer):
     first_name = serializers.CharField(required=True)
@@ -35,3 +35,12 @@ class CustomRegisterSerializer(RegisterSerializer):
         adapter.save_user(request, user, self)
         
         return user    
+    
+class ProfileSerializer(serializers.ModelSerializer):
+    double_major = serializers.CharField(required=False)
+    award_detail = serializers.CharField(required=False)
+    club_detail = serializers.CharField(required=False)
+    project_detail = serializers.CharField(required=False)
+    class Meta:
+        model = Profile
+        fields = '__all__'
