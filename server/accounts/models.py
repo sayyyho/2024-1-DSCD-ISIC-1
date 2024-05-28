@@ -19,3 +19,6 @@ class Profile(models.Model):
     club_detail = models.TextField(blank=True) # 동아리 세부 내역 (필수 x)
     project_part = models.CharField(max_length=20) # 프로젝트 분야 (필수 o)
     project_detail = models.TextField(blank=True) # 프로젝트 세부 내역 (필수 x)
+    
+    def __str__(self):
+        return self.user.username
