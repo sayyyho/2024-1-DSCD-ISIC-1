@@ -3,7 +3,7 @@ from django.db import models
 
 # 기본 User 모델에 전화번호 추가
 class User(AbstractUser):
-    phone_number = models.CharField(max_length=12, blank=True, null=True) # 전화번호 (필수 x)
+    phone_number = models.CharField(max_length=20, blank=True, null=True) # 전화번호 (필수 x)
     sex = models.CharField(max_length=2, blank=True, null=True) # 성별 (필수 x)
 
 
