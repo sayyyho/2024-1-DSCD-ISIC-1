@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { InputProps } from "@/interfaces/input";
 
-export const Input = styled.input<InputProps>`
+export const Input = styled.input.attrs<InputProps>((props) => ({
+  type: props.$type,
+}))`
   width: ${(props) => `${props.width}`};
   height: ${(props) => `${props.height}`};
-  border-radius: ${(props) => (props.radius ? `${props.radius}` : 0)};
+  border-radius: ${(props) => (props.$radius ? `${props.$radius}` : 0)};
 `;

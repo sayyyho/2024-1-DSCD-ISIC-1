@@ -26,11 +26,12 @@ html {
 }
 body  {
     background-color: #FEF9EB;  
-    width: 393px;
+    width: 430px;
     height: 100vh;
   }
   #root {
     height: 100%;
     width: 100%;
   }
+
 `;

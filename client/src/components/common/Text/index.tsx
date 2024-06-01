@@ -6,8 +6,9 @@ export const Text = (props: TextProps) => {
     <S.Text
       size={props.size}
       color={props.color}
-      decoration={props.decoration}
-      padding={props.padding}
+      $decoration={props.$decoration}
+      $padding={props.$padding}
+      $selfProps={props.$selfProps}
     >
       {props.children}
     </S.Text>

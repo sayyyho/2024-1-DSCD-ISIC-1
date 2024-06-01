@@ -7,8 +7,8 @@ export const Input = (props: InputProps) => {
       width={props.width}
       height={props.height}
       placeholder={props.defaultString}
-      type={props.type}
-      radius={props.radius}
+      $type={props.$type}
+      $radius={props.$radius}
       name={props.name}
       onChange={props.onChange}
     ></S.Input>

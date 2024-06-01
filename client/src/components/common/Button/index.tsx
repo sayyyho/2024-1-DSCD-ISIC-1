@@ -5,13 +5,14 @@ export const Button = (props: ButtonProps) => {
   return (
     <S.Button
       width={props.width}
+      name={props.name}
       height={props.height}
       $status={props.$status}
       margin={props.margin}
       padding={props.padding}
       radius={props.radius}
       onClick={props.onClick}
-      background={props.background}
+      backgroundColor={props.backgroundColor}
       disabled={props.disabled}
       color={props.color}
       fontSize={props.fontSize}
