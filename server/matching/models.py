@@ -14,7 +14,7 @@ class Senior_Profile(models.Model):
 class Embedded_Senior_Profile(models.Model):
     senior_info = models.OneToOneField(Senior_Profile, on_delete=models.CASCADE)
     major_embedding = models.JSONField(blank=True)
-    double_major_embedding = models.JSONField(blank=True)
+    double_major_embedding = models.JSONField(blank=True, null=True)
     grades_embedding = models.JSONField(blank=True)
     skills_embedding = models.JSONField(blank=True)
     award_part_embedding = models.JSONField(blank=True)
