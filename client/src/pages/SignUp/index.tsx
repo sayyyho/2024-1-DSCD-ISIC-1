@@ -9,6 +9,7 @@ import { Button } from "@/components/common/Button";
 import BACK from "@/assets/images/back.svg";
 import { RequestSignUpParams } from "@/types/auth";
 import { postSignUp } from "@/apis/signUp";
+import Swal from "sweetalert2";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -29,20 +30,51 @@ export const SignUp = () => {
       ...cur,
       sex: status ? "여자" : "남자",
     }));
-    console.log(user);
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((cur: RequestSignUpParams) => ({
       ...cur,
       [e.target.name]: e.target.value,
     }));
-    console.log(user);
   };
-  const onSubmit = () => {
-    postSignUp(user)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  const onSubmit = async () => {
+    Swal.fire({
+      title: "회원 가입 요청",
+      text: "잠시만 기다려 주세요.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const res = await postSignUp(user);
+      if (res.status === 204) {
+        Swal.fire({
+          title: "회원가입 성공",
+          text: "로그인 페이지로 이동합니다.",
+          icon: "success",
+        }).then(() => {
+          navigate("/login");
+        });
+      } else {
+        Swal.fire({
+          title: "에러 발생!",
+          text: "문제가 발생했습니다. 다시 시도해 주세요.",
+          icon: "error",
+          confirmButtonColor: "#ed8b00",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "에러 발생!",
+        text: "문제가 발생했습니다. 다시 시도해 주세요.",
+        icon: "error",
+        confirmButtonColor: "#ed8b00",
+      });
+    }
   };
+
   return (
     <PageLayout $justifyContent="start">
       <Header>
