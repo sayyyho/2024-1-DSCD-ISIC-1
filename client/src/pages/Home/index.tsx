@@ -2,6 +2,7 @@ import { PageLayout } from "@/components/PageLayout";
 import { Box } from "@/components/common/Box";
 import { Text } from "@/components/common/Text";
 import { Wrapper } from "@/components/common/Wrapper";
+import { Link } from "react-router-dom";
 import PEOPLE_IMG from "@/assets/images/people.png";
 import CASE from "@/assets/images/briefCase.svg";
 import CAP from "@/assets/images/graduationCap.svg";
@@ -24,9 +25,17 @@ export const Home = () => {
         </Wrapper>
       </Box>
       <Box width="90%" height="10%" radius="17px 17px 17px 17px">
-        <Text size="1rem" color="black">
-          내 정보 입력하기
-        </Text>
+        <Link
+          to="/info"
+          style={{
+            textDecoration: "none",
+            color: "black",
+          }}
+        >
+          <Text size="1rem" color="black">
+            내 정보 입력하기
+          </Text>
+        </Link>
       </Box>
       <Box
         width="90%"
