@@ -1,21 +1,21 @@
 import { useState } from "react";
-import Select, { StylesConfig } from "react-select";
+import Select, { StylesConfig, MultiValue } from "react-select";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
 import { Wrapper } from "@/components/common/Wrapper";
 import { Text } from "@/components/common/Text";
 import { Input } from "@/components/common/Input";
-import { skills } from "@/constant/options";
-import { grades } from "@/constant/options";
-import { fileds } from "@/constant/options";
+import { skills, grades, fields, Option } from "@/constant/options";
 import { TextArea } from "@/components/common/TextArea";
-import { Option } from "@/constant/options";
 import { Button } from "@/components/common/Button";
+import { Grid } from "@/components/common/Grid";
 import BACK from "@/assets/images/back.svg";
+import { Box } from "@/components/common/Box";
 
 export const Info = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const navigate = useNavigate();
 
   const customStyles: StylesConfig<Option, false> = {
@@ -23,6 +23,13 @@ export const Info = () => {
       ...provided,
       width: "100%",
     }),
+  };
+
+  const handleSkillsChange = (
+    newValue: MultiValue<Option>
+    // actionMeta: ActionMeta<Option>
+  ) => {
+    setSelectedSkills(newValue);
   };
 
   return (
@@ -56,7 +63,7 @@ export const Info = () => {
           height="35px"
           $type="text"
           $radius="6px"
-          name="username"
+          name="major"
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           복수전공
@@ -66,7 +73,7 @@ export const Info = () => {
           height="35px"
           $type="text"
           $radius="6px"
-          name="username"
+          name="minor"
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           학점
@@ -76,25 +83,39 @@ export const Info = () => {
           onChange={setSelectedOption}
           options={grades}
           styles={customStyles}
+          placeholder="학점을 선택해주세요."
         ></Select>
         <Text color="black" size="16px" $selfProps="flex-start">
           보유기술
         </Text>
         <Select
-          defaultValue={selectedOption}
-          onChange={setSelectedOption}
+          isMulti
+          value={selectedSkills}
+          onChange={handleSkillsChange}
           options={skills}
           styles={customStyles}
+          placeholder="보유기술을 선택해주세요."
         ></Select>
-
+        {selectedSkills.length > 0 && (
+          <Grid>
+            {selectedSkills.map((skill) => (
+              <Box height="40px" $backgroundColor="#9F5757" radius="10px">
+                <Text color="black" size="15px">
+                  {skill.label}
+                </Text>
+              </Box>
+            ))}
+          </Grid>
+        )}
         <Text color="black" size="16px" $selfProps="flex-start">
           수상이력
         </Text>
         <Select
           defaultValue={selectedOption}
           onChange={setSelectedOption}
-          options={fileds}
+          options={fields}
           styles={customStyles}
+          placeholder="관련분야를 선택해주세요."
         ></Select>
         <TextArea
           width="98%"
@@ -108,8 +129,9 @@ export const Info = () => {
         <Select
           defaultValue={selectedOption}
           onChange={setSelectedOption}
-          options={fileds}
+          options={fields}
           styles={customStyles}
+          placeholder="관련분야를 선택해주세요."
         ></Select>
         <TextArea
           width="98%"
@@ -123,8 +145,9 @@ export const Info = () => {
         <Select
           defaultValue={selectedOption}
           onChange={setSelectedOption}
-          options={fileds}
+          options={fields}
           styles={customStyles}
+          placeholder="관련분야를 선택해주세요."
         ></Select>
         <TextArea
           width="98%"

@@ -10,7 +10,7 @@ export const grades: Option[] = [
   { value: "3.0", label: "3.0 미만" },
 ];
 
-export const fileds: Option[] = [
+export const fields: Option[] = [
   { value: "pd", label: "기획 및 디자인" },
   { value: "front", label: "프론트엔드 개발" },
   { value: "back", label: "백엔드 개발" },
@@ -233,4 +233,26 @@ export const skills: Option[] = [
   { value: "monday", label: "Monday.com" },
   { value: "asana", label: "Asana" },
   { value: "clickup", label: "ClickUp" },
+
+  { value: "mysql", label: "MySQL" },
+  { value: "postgresql", label: "PostgreSQL" },
+  { value: "sqlite", label: "SQLite" },
+  { value: "mariadb", label: "MariaDB" },
+  { value: "microsoft-sql-server", label: "Microsoft SQL Server" },
+  { value: "oracle", label: "Oracle" },
+  { value: "db2", label: "DB2" },
+  { value: "h2", label: "H2" },
+  { value: "cassandra", label: "Cassandra" },
+  { value: "redshift", label: "Redshift" },
+  { value: "snowflake", label: "Snowflake" },
+  { value: "clickhouse", label: "ClickHouse" },
+  { value: "firebase-realtime-database", label: "Firebase Realtime Database" },
+  { value: "mongodb", label: "MongoDB" },
+  { value: "dynamodb", label: "DynamoDB" },
+  { value: "neo4j", label: "Neo4j" },
+  { value: "arangodb", label: "ArangoDB" },
+  { value: "couchdb", label: "CouchDB" },
+  { value: "pouchdb", label: "PouchDB" },
+  { value: "redis", label: "Redis" },
+  { value: "memcached", label: "Memcached" },
 ];
