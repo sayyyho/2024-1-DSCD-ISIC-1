@@ -75,7 +75,6 @@ export const SignUp = () => {
     }
   };
 
-
   return (
     <PageLayout $justifyContent="start">
       <Header>
