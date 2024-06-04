@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Senior_Profile, Embedded_Senior_Profile
 from accounts.models import Profile
-from .serializers import SeniorRecommendSerializer, EmbeddedSeniorProfileSerializer
+from .serializers import SeniorRecommendSerializer, EmbeddedSeniorProfileSerializer, SeniorProfileSerializer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
@@ -75,3 +75,17 @@ class SeniorRecommendView(APIView):
             item["similarity_sum"] = f"{int(item['similarity_sum'])}%"
             
         return Response(top5_similar, status=status.HTTP_200_OK)
+    
+class SeniorProfileDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, senior_id, *args, **kwargs):
+        try:
+            senior_profile = Senior_Profile.objects.get(id=senior_id)
+            
+        except Senior_Profile.DoesNotExist:
+            return Response({"error": "Senior profile not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        senior_detail = SeniorProfileSerializer(senior_profile)
+        
+        return Response(senior_detail.data, status=status.HTTP_200_OK)
