@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Senior_Profile, Embedded_Senior_Profile
 from accounts.models import Profile
-from .serializers import JobRecommendSerializer, SeniorRecommendSerializer, EmbeddedSeniorProfileSerializer
+from .serializers import SeniorRecommendSerializer, EmbeddedSeniorProfileSerializer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
