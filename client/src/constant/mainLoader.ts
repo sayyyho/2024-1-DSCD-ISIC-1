@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom";
 export const loader = () => {
-  if (localStorage.getItem("key") === null) {
+  if (sessionStorage.getItem("access_token") === null) {
     return redirect("/login");
   }
   return null;

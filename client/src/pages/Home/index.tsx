@@ -16,11 +16,13 @@ export const Home = () => {
         $backgroundColor="#F3E1B0"
         radius="17px 17px 17px 17px"
       >
-        <Text size="3rem" color="white" $padding="1.5rem">
-          <span>졸업한 선배의</span>
-          <span>밥벌이 알아보기</span>
+        <Text size="3rem" color="white" $padding="0">
+          졸업한 선배의
         </Text>
-        <Wrapper width="80%" $margin="20% 0 0 0">
+        <Text size="3rem" color="white" $padding="0">
+          밥벌이 알아보기
+        </Text>
+        <Wrapper width="80%" $margin="20% 0 0 0" $isFlex={true}>
           <img src={PEOPLE_IMG} alt="선배이미지" />
         </Wrapper>
       </Box>
@@ -30,11 +32,14 @@ export const Home = () => {
           style={{
             textDecoration: "none",
             color: "black",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Text size="1rem" color="black">
-            내 정보 입력하기
-          </Text>
+          내 정보 입력하기 📚
         </Link>
       </Box>
       <Box
@@ -48,32 +53,49 @@ export const Home = () => {
           width="46%"
           height="100%"
           radius="24px"
-          // border="20px"
           $justifyProps="space-around"
         >
-          <Box height="50%" $backgroundColor="transparent">
-            <img src={CASE} alt="회사가방" />
-          </Box>
-          <Text size="1rem" color="black">
-            직업 추천 받기
-          </Text>
+          <Link
+            to="/info"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Box height="50%" $backgroundColor="transparent" $padding="1rem 0">
+              <img src={CASE} alt="회사가방" />
+            </Box>
+            <Text size="1rem" color="black">
+              직업 추천 받기
+            </Text>
+          </Link>
         </Box>
         <Box
           width="46%"
           height="100%"
           radius="24px"
+          // border="20px"
           $justifyProps="space-around"
         >
-          <Box height="50%" $backgroundColor="transparent">
-            <img src={CAP} alt="학사모" />
-          </Box>
-          <Text size="1rem" color="black">
-            선배 추천 받기
-          </Text>
+          <Link
+            to="/info"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Box height="50%" $backgroundColor="transparent" $padding="1rem 0">
+              <img src={CAP} alt="학사모" />
+            </Box>
+            <Text size="1rem" color="black">
+              선배 추천 받기
+            </Text>
+          </Link>
         </Box>
-        {/* <Text size="1rem" color="black">
-          내 정보 입력하기
-        </Text> */}
       </Box>
     </PageLayout>
   );
