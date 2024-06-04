@@ -1,6 +1,7 @@
 from django.db import models
 
 class Senior_Profile(models.Model):
+    name = models.CharField(max_length=20)
     job = models.CharField(max_length=20)
     major = models.CharField(max_length=20)
     double_major = models.CharField(max_length=20, blank=True)
