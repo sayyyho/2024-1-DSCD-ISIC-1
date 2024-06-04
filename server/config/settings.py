@@ -74,12 +74,11 @@ REST_AUTH = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
 SITE_ID = 1
-REST_USE_JWT = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username' # User 모델의 username 변경 x
 ACCOUNT_EMAIL_REQUIRED = False          # email 필드 사용 x
 ACCOUNT_USERNAME_REQUIRED = True        # username 필드 사용 o
