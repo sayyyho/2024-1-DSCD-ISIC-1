@@ -26,7 +26,7 @@ export const Login = () => {
       .then((response) => {
         setUserStatus(true);
         setLoadingFlag(false);
-        localStorage.setItem("key", response.data.key);
+        sessionStorage.setItem("access_token", response.data.access);
       })
       .catch((error) => {
         console.error(error);
