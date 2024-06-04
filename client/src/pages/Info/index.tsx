@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select, { StylesConfig, MultiValue } from "react-select";
+import { getInfo } from "@/apis/info";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
@@ -14,6 +15,17 @@ import BACK from "@/assets/images/back.svg";
 import { Box } from "@/components/common/Box";
 
 export const Info = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getInfo();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const navigate = useNavigate();
