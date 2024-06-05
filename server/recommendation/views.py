@@ -36,11 +36,10 @@ def combined_user_profile(profile_data):
 
 def parse_result(text):
     recommendations = []
-    sections = text.strip().split("\n\n")[1:]  # 첫 번째 설명 부분 제외
-    
+    sections = re.split(r'\n\n', text.strip())[1:]  # 첫 번째 설명 부분 제외
     for section in sections:
-        lines = section.strip().split("\n")
-        job_name = re.search(r'\d+\.\s(.+)', lines[0]).group(1)
+        lines = section.strip().split('\n')
+        job_name = re.sub(r'^\d+\.\s+', '', lines[0]).strip()  # 숫자와 점, 공백 제거
         recommendation_reason = ""
         improvement_points = ""
         
