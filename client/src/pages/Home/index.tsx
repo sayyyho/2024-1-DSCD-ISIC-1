@@ -56,7 +56,7 @@ export const Home = () => {
           $justifyProps="space-around"
         >
           <Link
-            to="/info"
+            to="/job"
             style={{
               textDecoration: "none",
               color: "black",
@@ -80,7 +80,7 @@ export const Home = () => {
           $justifyProps="space-around"
         >
           <Link
-            to="/info"
+            to="/senior"
             style={{
               textDecoration: "none",
               color: "black",
