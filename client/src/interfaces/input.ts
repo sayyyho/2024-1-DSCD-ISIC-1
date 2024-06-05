@@ -7,5 +7,5 @@ export interface InputProps {
   name?: string;
   $dropType?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value?: string;
 }
