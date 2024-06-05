@@ -12,11 +12,14 @@ export const postLogin = async (body: PostLogin) => {
       username: body.username,
       password: body.password,
     });
+    console.log(response);
     return response;
   } catch (error) {
     if (isAxiosError(error)) {
+      console.log(error);
       throw error;
     } else {
+      console.log(error);
       throw error;
     }
   }

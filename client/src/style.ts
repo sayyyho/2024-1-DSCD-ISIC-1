@@ -23,11 +23,12 @@ html {
   display: flex;
   justify-content: center;
   padding: 0;
+  height: 100vh;
 }
 body  {
     background-color: #FEF9EB;  
     width: 430px;
-    height: 100vh;
+    height: 100%;
   }
   #root {
     height: 100%;

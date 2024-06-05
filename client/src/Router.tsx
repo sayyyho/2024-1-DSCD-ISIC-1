@@ -6,6 +6,8 @@ import { Login } from "./pages/Login";
 import { loader } from "@/constant/mainLoader";
 import { SignUp } from "./pages/SignUp";
 import { Info } from "./pages/Info";
+import { Job } from "./pages/Job";
+import { Senior } from "./pages/Senior";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ export const router = createBrowserRouter([
       {
         path: "/info",
         element: <Info />,
+      },
+      {
+        path: "/job",
+        element: <Job />,
+      },
+      {
+        path: "/senior",
+        element: <Senior />,
       },
     ],
   },

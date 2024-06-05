@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Select, { StylesConfig, MultiValue } from "react-select";
 import { getInfo } from "@/apis/info";
-import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
 import { Wrapper } from "@/components/common/Wrapper";
@@ -11,7 +10,6 @@ import { skills, grades, fields, Option } from "@/constant/options";
 import { TextArea } from "@/components/common/TextArea";
 import { Button } from "@/components/common/Button";
 import { Grid } from "@/components/common/Grid";
-import BACK from "@/assets/images/back.svg";
 import { Box } from "@/components/common/Box";
 
 export const Info = () => {
@@ -28,7 +26,6 @@ export const Info = () => {
   }, []);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
-  const navigate = useNavigate();
 
   const customStyles: StylesConfig<Option, false> = {
     container: (provided) => ({
@@ -46,16 +43,7 @@ export const Info = () => {
 
   return (
     <PageLayout $justifyContent="start">
-      <Header>
-        <img
-          src={BACK}
-          alt="뒤로가기"
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
-      </Header>
+      <Header></Header>
       <Text color="black" size="36px">
         내 정보 입력하기
       </Text>

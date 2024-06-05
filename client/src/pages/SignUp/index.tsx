@@ -6,10 +6,14 @@ import { Text } from "@/components/common/Text";
 import { Wrapper } from "@/components/common/Wrapper";
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
-import BACK from "@/assets/images/back.svg";
 import { RequestSignUpParams } from "@/types/auth";
 import { postSignUp } from "@/apis/signUp";
-import Swal from "sweetalert2";
+import { useSubmit } from "@/hooks/useSubmitStatus";
+
+interface SignUpResponse {
+  status: number;
+  message?: string;
+}
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -37,56 +41,20 @@ export const SignUp = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const onSubmit = async () => {
-    Swal.fire({
-      title: "회원 가입 요청",
-      text: "잠시만 기다려 주세요.",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
 
-    try {
-      const res = await postSignUp(user);
-      if (res.status === 204) {
-        Swal.fire({
-          title: "회원가입 성공",
-          text: "로그인 페이지로 이동합니다.",
-          icon: "success",
-        }).then(() => {
-          navigate("/login");
-        });
-      } else {
-        Swal.fire({
-          title: "에러 발생!",
-          text: "문제가 발생했습니다. 다시 시도해 주세요.",
-          icon: "error",
-          confirmButtonColor: "#ed8b00",
-        });
-      }
-    } catch (error) {
-      Swal.fire({
-        title: "에러 발생!",
-        text: "문제가 발생했습니다. 다시 시도해 주세요.",
-        icon: "error",
-        confirmButtonColor: "#ed8b00",
-      });
-    }
+  const successCallback = () => {
+    navigate("/login");
   };
+
+  const { onSubmit } = useSubmit<SignUpResponse>(
+    postSignUp,
+    "회원가입 성공",
+    successCallback
+  );
 
   return (
     <PageLayout $justifyContent="start">
-      <Header>
-        <img
-          src={BACK}
-          alt="뒤로가기"
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
-      </Header>
+      <Header></Header>
       <Text color="black" size="36px">
         회원가입
       </Text>
@@ -216,7 +184,7 @@ export const SignUp = () => {
           backgroundColor="#4D3E3E"
           radius="5px"
           color="white"
-          onClick={onSubmit}
+          onClick={() => onSubmit(user)}
         >
           회원가입
         </Button>
@@ -224,3 +192,5 @@ export const SignUp = () => {
     </PageLayout>
   );
 };
+
+export default SignUp;
