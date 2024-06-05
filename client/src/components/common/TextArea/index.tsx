@@ -8,6 +8,9 @@ export const TextArea = (props: InputProps) => {
       height={props.height}
       placeholder={props.defaultString}
       $radius={props.$radius}
+      onChange={props.onChange}
+      name={props.name}
+      value={props.value}
     />
   );
 };
