@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Select, { StylesConfig, MultiValue } from "react-select";
 import { getInfo, postInfo, patchInfo, Info as InfoType } from "@/apis/info";
 import { PageLayout } from "@/components/PageLayout";
@@ -11,8 +11,10 @@ import { TextArea } from "@/components/common/TextArea";
 import { Button } from "@/components/common/Button";
 import { Grid } from "@/components/common/Grid";
 import { Box } from "@/components/common/Box";
+import { useAuthHeader } from "@/hooks/useAuth";
 
 export const Info = () => {
+  const [header] = useState(useAuthHeader());
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const [selectedGrades, setSelectedGrades] = useState<Option | null>(null);
   const [selectedAward, setSelectedAward] = useState<Option | null>(null);
@@ -32,40 +34,42 @@ export const Info = () => {
     skills: "",
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getInfo();
-        if (data.status === 200) {
-          setStatus(200);
-          const skillsArray = data.data.skills
-            .split(", ")
-            .map((skill) => ({ value: skill, label: skill }));
-          setData(data.data);
-          setSelectedSkills(skillsArray);
-          setSelectedGrades({
-            value: data.data.grades,
-            label: data.data.grades,
-          });
-          setSelectedAward({
-            value: data.data.award_part,
-            label: data.data.award_part,
-          });
-          setSelectedClub({
-            value: data.data.club_part,
-            label: data.data.club_part,
-          });
-          setSelectedProject({
-            value: data.data.project_part,
-            label: data.data.project_part,
-          });
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchData = useCallback(async () => {
+    try {
+      console.log("callback");
+      const data = await getInfo(header);
+      if (data.status === 200) {
+        setStatus(200);
+        const skillsArray = data.data.skills
+          .split(", ")
+          .map((skill) => ({ value: skill, label: skill }));
+        setData(data.data);
+        setSelectedSkills(skillsArray);
+        setSelectedGrades({
+          value: data.data.grades,
+          label: data.data.grades,
+        });
+        setSelectedAward({
+          value: data.data.award_part,
+          label: data.data.award_part,
+        });
+        setSelectedClub({
+          value: data.data.club_part,
+          label: data.data.club_part,
+        });
+        setSelectedProject({
+          value: data.data.project_part,
+          label: data.data.project_part,
+        });
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  }, [header]);
+
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const customStyles: StylesConfig<Option, false> = {
     container: (provided) => ({
@@ -100,12 +104,12 @@ export const Info = () => {
     console.log(updatedData);
     try {
       if (status === 204) {
-        await postInfo(updatedData);
+        await postInfo(updatedData, header);
         setStatus(200);
       } else {
         setData(updatedData);
         setStatus(200);
-        await patchInfo(updatedData);
+        await patchInfo(updatedData, header);
         // console.log(res);
       }
     } catch (error) {

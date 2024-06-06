@@ -1,10 +1,6 @@
 import { isAxiosError } from "axios";
 import { instance } from "./axios";
 
-const headers = {
-  Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-};
-
 export interface Info {
   award_detail: string;
   award_part: string;
@@ -20,7 +16,7 @@ export interface Info {
   user?: number;
 }
 
-export const getInfo = async () => {
+export const getInfo = async (headers: { Authorization: string }) => {
   try {
     const response = await instance.get<Info>(`/accounts/profile/`, {
       headers,
@@ -36,7 +32,10 @@ export const getInfo = async () => {
   }
 };
 
-export const postInfo = async (data: Info) => {
+export const postInfo = async (
+  data: Info,
+  headers: { Authorization: string }
+) => {
   try {
     const response = await instance.post(`/accounts/profile/`, data, {
       headers,
@@ -51,7 +50,10 @@ export const postInfo = async (data: Info) => {
   }
 };
 
-export const patchInfo = async (data: Info) => {
+export const patchInfo = async (
+  data: Info,
+  headers: { Authorization: string }
+) => {
   try {
     const response = await instance.patch(`/accounts/profile/`, data, {
       headers,
