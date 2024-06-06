@@ -15,3 +15,9 @@ export const getJobs = async (headers: { Authorization: string }) => {
     }
   }
 };
+
+export interface JobRecommendation {
+  job_name: string;
+  recommendation_reason: string;
+  improvement_points: string;
+}

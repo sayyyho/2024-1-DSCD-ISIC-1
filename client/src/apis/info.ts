@@ -6,7 +6,7 @@ export interface Info {
   award_part: string;
   club_detail: string;
   club_part: string;
-  double_major: string;
+  double_major: string | null;
   grades: string;
   id?: number;
   major: string;
@@ -21,7 +21,6 @@ export const getInfo = async (headers: { Authorization: string }) => {
     const response = await instance.get<Info>(`/accounts/profile/`, {
       headers,
     });
-    console.log(response);
     return response;
   } catch (error) {
     if (isAxiosError(error)) {

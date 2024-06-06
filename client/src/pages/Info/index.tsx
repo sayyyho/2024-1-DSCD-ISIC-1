@@ -36,7 +36,6 @@ export const Info = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      console.log("callback");
       const data = await getInfo(header);
       if (data.status === 200) {
         setStatus(200);
@@ -142,6 +141,7 @@ export const Info = () => {
           name="major"
           value={data.major}
           onChange={onChange}
+          defaultString="주전공을 입력해주세요."
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           복수전공
@@ -154,6 +154,7 @@ export const Info = () => {
           name="double_major"
           value={data.double_major}
           onChange={onChange}
+          defaultString="복수전공을 입력해주세요. 없으면 X를 입력해주세요."
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           학점
@@ -182,7 +183,7 @@ export const Info = () => {
               <Box
                 key={skill.value}
                 height="40px"
-                $backgroundColor="#9F5757"
+                $backgroundColor="#FFFFFF"
                 radius="10px"
               >
                 <Text color="black" size="15px">
