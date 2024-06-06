@@ -70,6 +70,10 @@ export const Info = () => {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   const customStyles: StylesConfig<Option, false> = {
     container: (provided) => ({
       ...provided,
