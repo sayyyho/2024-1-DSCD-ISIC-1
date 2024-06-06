@@ -6,6 +6,8 @@ import { LoginForm } from "@/components/LoginForm";
 import { RequestLoginParams } from "@/types/auth";
 import { postLogin } from "@/apis/login";
 import { useSubmit } from "@/hooks/useSubmitStatus";
+import { userAuth } from "@/atoms/auth";
+import { useSetRecoilState } from "recoil";
 
 interface LoginResponse {
   data: {
@@ -16,6 +18,7 @@ interface LoginResponse {
 }
 
 export const Login = () => {
+  const userState = useSetRecoilState(userAuth);
   const navigate = useNavigate();
   const [user, setUser] = useState<RequestLoginParams>({
     username: "",
@@ -30,7 +33,7 @@ export const Login = () => {
   };
 
   const successCallback = (response: LoginResponse) => {
-    sessionStorage.setItem("access_token", response.data.access);
+    userState(response.data.access);
     navigate("/");
   };
 

@@ -3,7 +3,6 @@ import App from "./App";
 import ErrorPage from "./ErorrPage";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
-import { loader } from "@/constant/mainLoader";
 import { SignUp } from "./pages/SignUp";
 import { Info } from "./pages/Info";
 import { Job } from "./pages/Job";
@@ -18,7 +17,6 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
-        loader: loader,
       },
       {
         path: "/home",
