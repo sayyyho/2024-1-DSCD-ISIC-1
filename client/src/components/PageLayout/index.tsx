@@ -3,7 +3,11 @@ import { WrapperProps } from "@/interfaces/wrapper";
 
 export const PageLayout = (props: WrapperProps) => {
   return (
-    <S.Wrapper $gap={props.$gap} $justifyContent={props.$justifyContent}>
+    <S.Wrapper
+      $gap={props.$gap}
+      $justifyContent={props.$justifyContent}
+      height={props.height}
+    >
       {props.children}
     </S.Wrapper>
   );

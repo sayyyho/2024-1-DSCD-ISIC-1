@@ -12,6 +12,7 @@ import { Button } from "@/components/common/Button";
 import { Grid } from "@/components/common/Grid";
 import { Box } from "@/components/common/Box";
 import { useAuthHeader } from "@/hooks/useAuth";
+import { Spinner } from "@/components/common/Spinner";
 
 export const Info = () => {
   const [header] = useState(useAuthHeader());
@@ -21,6 +22,9 @@ export const Info = () => {
   const [selectedClub, setSelectedClub] = useState<Option | null>(null);
   const [selectedProject, setSelectedProject] = useState<Option | null>(null);
   const [status, setStatus] = useState<number>(204);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "completed"
+  >("idle");
   const [data, setData] = useState<InfoType>({
     award_detail: "",
     award_part: "",
@@ -70,11 +74,10 @@ export const Info = () => {
     fetchData();
   }, [fetchData]);
 
-
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-    
+
   const customStyles: StylesConfig<Option, false> = {
     container: (provided) => ({
       ...provided,
@@ -96,6 +99,7 @@ export const Info = () => {
   };
 
   const handleSubmit = async () => {
+    setSubmitStatus("submitting");
     const skillsString = selectedSkills.map((skill) => skill.label).join(", ");
     const updatedData = {
       ...data,
@@ -116,10 +120,28 @@ export const Info = () => {
         await patchInfo(updatedData, header);
         // console.log(res);
       }
+      setSubmitStatus("completed");
+      setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 2000); // 반영 완료 메시지를 2초 동안 표시
     } catch (error) {
       console.error(error);
     }
   };
+
+  if (submitStatus === "submitting") {
+    return <Spinner>반영중...</Spinner>;
+  }
+
+  if (submitStatus === "completed") {
+    return (
+      <PageLayout $justifyContent="center" $alignItems="center">
+        <Text color="green" size="24px">
+          반영완료
+        </Text>
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout $justifyContent="start">
@@ -263,6 +285,7 @@ export const Info = () => {
           radius="5px"
           color="white"
           onClick={handleSubmit}
+          isCursor={true}
         >
           저장하기
         </Button>
