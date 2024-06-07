@@ -58,19 +58,25 @@ export const Job = () => {
             width="100%"
             $flexDirection="row"
             $padding="10px"
+            $backgroundColor="transparent"
           >
             추천 이유
           </Box>
-          <Box $justifyProps="start">{job.recommendation_reason}</Box>
+          <Box $justifyProps="start" $backgroundColor="transparent">
+            {job.recommendation_reason}
+          </Box>
           <Box
             $justifyProps="start"
             width="100%"
             $flexDirection="row"
             $padding="10px"
+            $backgroundColor="transparent"
           >
             보완점
           </Box>
-          <Box $justifyProps="flex-start">{job.improvement_points}</Box>
+          <Box $justifyProps="flex-start" $backgroundColor="transparent">
+            {job.improvement_points}
+          </Box>
         </Box>
       ))}
     </PageLayout>

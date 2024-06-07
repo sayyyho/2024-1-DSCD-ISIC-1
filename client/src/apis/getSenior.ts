@@ -15,3 +15,13 @@ export const getSenior = async (headers: { Authorization: string }) => {
     }
   }
 };
+
+export interface SeniorRecommendation {
+  double_major: string;
+  grades: string;
+  id: number;
+  job: string;
+  major: string;
+  name: string;
+  similarity_sum: string;
+}

@@ -13,4 +13,5 @@ export interface ButtonProps {
   color?: string;
   fontSize?: number;
   name?: string;
+  isCursor?: boolean;
 }

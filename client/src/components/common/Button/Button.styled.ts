@@ -3,6 +3,9 @@ import theme from "@/theme";
 import { ButtonProps } from "@/interfaces/button";
 
 export const Button = styled.button<ButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   background-color: ${(props) =>
     props.backgroundColor
@@ -16,4 +19,5 @@ export const Button = styled.button<ButtonProps>`
   border-radius: ${(props) => (props.radius ? `${props.radius}` : 0)};
   color: ${(props) => (props.color ? `${props.color}` : "black")};
   color: ${(props) => props.$status && `white`};
+  cursor: ${(props) => props.isCursor && `pointer`};
 `;
