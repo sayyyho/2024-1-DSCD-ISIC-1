@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.schema.runnable import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
@@ -36,7 +36,7 @@ def combined_user_profile(profile_data):
 
 def parse_result(text):
     recommendations = []
-    sections = re.split(r'\n\n', text.strip())[1:]  # 첫 번째 설명 부분 제외
+    sections = re.split(r'\n\n', text.strip())[1:3]  # 첫 번째 설명 부분 제외
     for section in sections:
         lines = section.strip().split('\n')
         job_name = re.sub(r'^\d+\.\s+', '', lines[0]).strip()  # 숫자와 점, 공백 제거
