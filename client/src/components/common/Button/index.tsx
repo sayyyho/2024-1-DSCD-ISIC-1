@@ -17,6 +17,7 @@ export const Button = (props: ButtonProps) => {
       color={props.color}
       fontSize={props.fontSize}
       type={props.type}
+      isCursor={props.isCursor}
     >
       {props.children}
     </S.Button>

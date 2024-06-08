@@ -42,6 +42,7 @@ export const LoginForm = (props: {
           radius="105px"
           color="white"
           onClick={props.handleLogin}
+          isCursor={true}
         >
           <Text size="1rem" color="white">
             Login

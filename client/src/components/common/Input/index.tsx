@@ -11,6 +11,7 @@ export const Input = (props: InputProps) => {
       $radius={props.$radius}
       name={props.name}
       onChange={props.onChange}
+      value={props.value}
     ></S.Input>
   );
 };

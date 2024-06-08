@@ -15,8 +15,10 @@ export const postLogin = async (body: PostLogin) => {
     return response;
   } catch (error) {
     if (isAxiosError(error)) {
+      console.log(error);
       throw error;
     } else {
+      console.log(error);
       throw error;
     }
   }

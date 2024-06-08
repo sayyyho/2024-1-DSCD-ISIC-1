@@ -1,7 +1,7 @@
 export interface BoxProps {
   children?: React.ReactNode;
   width?: string;
-  height: string;
+  height?: string;
   margin?: string;
   border?: string;
   $padding?: string;
