@@ -56,6 +56,7 @@ openai==1.30.5
 orjson==3.10.3
 packaging==23.2
 pillow==10.3.0
+psycopg2==2.9.9
 psycopg2-binary==2.9.9
 pycparser==2.22
 pydantic==2.7.2

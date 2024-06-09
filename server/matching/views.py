@@ -1,3 +1,5 @@
+import os
+import json
 from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -33,15 +35,10 @@ class SeniorRecommendView(APIView):
         embedded_senior_profiles = Embedded_Senior_Profile.objects.all()
         embedded_senior_profiles_data = EmbeddedSeniorProfileSerializer(embedded_senior_profiles, many=True).data
         
-        weights = {
-            "major": 0.025,
-            "double_major": 0.025,
-            "grades": 0.05,
-            "skills": 0.3,
-            "award_part": 0.2,
-            "club_part": 0.2,
-            "project_part": 0.2
-        }
+        # 환경변수에서 가중치 가져오기
+        weights_str = os.getenv('WEIGHTS', '{}')
+        weights = json.loads(weights_str)
+
         
         similarities = []
 
