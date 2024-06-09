@@ -1,25 +1,33 @@
+import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
 import { useEffect, useState } from "react";
-import { getSenior, SeniorRecommendation } from "@/apis/getSenior";
+import { getSenior } from "@/apis/getSenior";
 import { useAuthHeader } from "@/hooks/useAuth";
 import { Text } from "@/components/common/Text";
 import { Box } from "@/components/common/Box";
 import { Spinner } from "@/components/common/Spinner";
 import { Grid } from "@/components/common/Grid";
 import { Button } from "@/components/common/Button";
+import { seniorData } from "@/atoms/seniorData";
 import USER from "@/assets/images/user.svg";
 
 export const Senior = () => {
   const [headers] = useState(useAuthHeader());
   const [loading, setLoading] = useState(true);
-  const [res, setRes] = useState<SeniorRecommendation[]>([]);
+  const [SeniorData, setSeniorData] = useRecoilState(seniorData);
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
+      if (SeniorData.length > 0) {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       try {
         const response = await getSenior(headers);
-        setRes(response.data);
+        setSeniorData(response.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -27,12 +35,11 @@ export const Senior = () => {
       }
     };
     getData();
-  }, [headers]);
+  }, [headers, setSeniorData, SeniorData.length]);
 
   if (loading) {
     return <Spinner />;
   }
-
   return (
     <PageLayout $justifyContent="start" height="none">
       <Header></Header>
@@ -42,7 +49,7 @@ export const Senior = () => {
       <Text color="black" size="15px" $padding="10px">
         AI가 분석한 추천 선배입니다.
       </Text>
-      {res.map((senior, index) => (
+      {SeniorData.map((senior, index) => (
         <Box
           key={index}
           width="90%"
@@ -101,6 +108,7 @@ export const Senior = () => {
             radius="12px"
             padding="1rem"
             isCursor={true}
+            onClick={() => navigate(`/seniorDetail/${senior.id}`)}
           >
             <Text color="white" size="14px">
               선배 정보 상세 보기

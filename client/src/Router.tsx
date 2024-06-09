@@ -7,6 +7,7 @@ import { SignUp } from "./pages/SignUp";
 import { Info } from "./pages/Info";
 import { Job } from "./pages/Job";
 import { Senior } from "./pages/Senior";
+import { SeniorDetail } from "./pages/SeniorDetail";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "/senior",
         element: <Senior />,
+      },
+      {
+        path: "/seniorDetail/:id",
+        element: <SeniorDetail />,
       },
     ],
   },
