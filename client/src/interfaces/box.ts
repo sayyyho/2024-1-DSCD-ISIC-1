@@ -11,4 +11,5 @@ export interface BoxProps {
   fontSize?: number;
   $flexDirection?: string;
   $justifyProps?: string;
+  $shadow?: string;
 }

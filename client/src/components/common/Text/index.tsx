@@ -10,6 +10,7 @@ export const Text = (props: TextProps) => {
       $padding={props.$padding}
       $selfProps={props.$selfProps}
       $isLeft={props.$isLeft}
+      $margin={props.$margin}
     >
       {props.children}
     </S.Text>
