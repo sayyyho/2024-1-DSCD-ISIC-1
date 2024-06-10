@@ -3,25 +3,22 @@ import { Box } from "@/components/common/Box";
 import { Text } from "@/components/common/Text";
 import { Wrapper } from "@/components/common/Wrapper";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { userAuth } from "@/atoms/auth";
 import PEOPLE_IMG from "@/assets/images/people.png";
 import CASE from "@/assets/images/briefCase.svg";
 import CAP from "@/assets/images/graduationCap.svg";
 import { useEffect } from "react";
 
 export const Home = () => {
-  const token = useRecoilValue(userAuth);
   const navigate = useNavigate();
 
   useEffect(() => {
     const moveToLogin = () => {
       navigate("/login");
     };
-    if (token === null) {
+    if (!sessionStorage.getItem("token")) {
       moveToLogin();
     }
-  }, [token, navigate]);
+  }, [navigate]);
 
   return (
     <PageLayout $gap="1rem">
