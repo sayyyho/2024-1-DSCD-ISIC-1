@@ -57,7 +57,7 @@ class SeniorRecommendView(APIView):
                 "name": profile["senior_info"]["name"], 
                 "job": profile["senior_info"]["job"],
                 "major": profile["senior_info"]["major"],
-                "double_major": profile["senior_info"]["major"],
+                "double_major": profile["senior_info"]["double_major"],
                 "grades": profile["senior_info"]["grades"],
                 
                 "similarity_sum": similarity_sum
