@@ -15,6 +15,7 @@ export const Box = (props: BoxProps) => {
       $backgroundColor={props.$backgroundColor}
       $flexDirection={props.$flexDirection}
       $justifyProps={props.$justifyProps}
+      $shadow={props.$shadow}
     >
       {props.children}
     </S.Box>

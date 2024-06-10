@@ -12,13 +12,15 @@ import { Button } from "@/components/common/Button";
 import { Grid } from "@/components/common/Grid";
 import { Box } from "@/components/common/Box";
 import { Spinner } from "@/components/common/Spinner";
+import { Loading } from "@/components/common/Loading";
 
 export const Info = () => {
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const [selectedGrades, setSelectedGrades] = useState<Option | null>(null);
-  const [selectedAward, setSelectedAward] = useState<Option | null>(null);
-  const [selectedClub, setSelectedClub] = useState<Option | null>(null);
-  const [selectedProject, setSelectedProject] = useState<Option | null>(null);
+  const [selectedAward, setSelectedAward] = useState<MultiValue<Option>>(null);
+  const [selectedClub, setSelectedClub] = useState<MultiValue<Option>>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<MultiValue<Option>>(null);
   const [status, setStatus] = useState<number>(204);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "submitting" | "completed"
@@ -43,6 +45,7 @@ export const Info = () => {
       });
       if (data.status === 200) {
         setStatus(200);
+        console.log(data);
         const skillsArray = data.data.skills
           .split(", ")
           .map((skill) => ({ value: skill, label: skill }));
@@ -52,18 +55,21 @@ export const Info = () => {
           value: data.data.grades,
           label: data.data.grades,
         });
-        setSelectedAward({
-          value: data.data.award_part,
-          label: data.data.award_part,
-        });
-        setSelectedClub({
-          value: data.data.club_part,
-          label: data.data.club_part,
-        });
-        setSelectedProject({
-          value: data.data.project_part,
-          label: data.data.project_part,
-        });
+        const AwardsArray = data.data.award_part
+          .split(", ")
+          .map((award) => ({ value: award, label: award }));
+        setSelectedAward(AwardsArray);
+
+        const ClubArray = data.data.club_part
+          .split(", ")
+          .map((club) => ({ value: club, label: club }));
+        setSelectedClub(ClubArray);
+
+        const ProjectArray = data.data.project_part
+          .split(", ")
+          .map((project) => ({ value: project, label: project }));
+
+        setSelectedProject(ProjectArray);
       }
     } catch (error) {
       console.error(error);
@@ -89,6 +95,18 @@ export const Info = () => {
     setSelectedSkills(newValue);
   };
 
+  const handleProjectChange = (newValue: MultiValue<Option>) => {
+    setSelectedProject(newValue);
+  };
+
+  const handleClubChange = (newValue: MultiValue<Option>) => {
+    setSelectedClub(newValue);
+  };
+
+  const handleAwardChange = (newValue: MultiValue<Option>) => {
+    setSelectedAward(newValue);
+  };
+
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -101,15 +119,20 @@ export const Info = () => {
   const handleSubmit = async () => {
     setSubmitStatus("submitting");
     const skillsString = selectedSkills.map((skill) => skill.label).join(", ");
+    const awardsString = selectedAward.map((award) => award.label).join(", ");
+    const clubsString = selectedClub.map((club) => club.label).join(", ");
+    const projectsString = selectedProject
+      .map((project) => project.label)
+      .join(", ");
     const updatedData = {
       ...data,
       skills: skillsString,
       grades: selectedGrades ? selectedGrades.label : "",
-      award_part: selectedAward ? selectedAward.label : "",
-      club_part: selectedClub ? selectedClub.label : "",
-      project_part: selectedProject ? selectedProject.label : "",
+      award_part: awardsString,
+      club_part: clubsString,
+      project_part: projectsString,
     };
-    console.log(updatedData);
+    // console.log(updatedData);
     try {
       if (status === 204) {
         await postInfo(updatedData, {
@@ -127,24 +150,18 @@ export const Info = () => {
       setSubmitStatus("completed");
       setTimeout(() => {
         setSubmitStatus("idle");
-      }, 2000); // 반영 완료 메시지를 2초 동안 표시
+      }, 1500);
     } catch (error) {
       console.error(error);
     }
   };
 
   if (submitStatus === "submitting") {
-    return <Spinner>반영중...</Spinner>;
+    return <Spinner />;
   }
 
   if (submitStatus === "completed") {
-    return (
-      <PageLayout $justifyContent="center" $alignItems="center">
-        <Text color="green" size="24px">
-          반영완료
-        </Text>
-      </PageLayout>
-    );
+    return <Loading />;
   }
 
   return (
@@ -228,8 +245,9 @@ export const Info = () => {
           수상이력
         </Text>
         <Select
+          isMulti
           value={selectedAward}
-          onChange={setSelectedAward}
+          onChange={handleAwardChange}
           options={fields}
           styles={customStyles}
           placeholder="관련분야를 선택해주세요."
@@ -247,8 +265,9 @@ export const Info = () => {
           동아리 활동
         </Text>
         <Select
+          isMulti
           value={selectedClub}
-          onChange={setSelectedClub}
+          onChange={handleClubChange}
           options={fields}
           styles={customStyles}
           placeholder="관련분야를 선택해주세요."
@@ -266,8 +285,9 @@ export const Info = () => {
           프로젝트 경험
         </Text>
         <Select
+          isMulti
           value={selectedProject}
-          onChange={setSelectedProject}
+          onChange={handleProjectChange}
           options={fields}
           styles={customStyles}
           placeholder="관련분야를 선택해주세요."

@@ -5,4 +5,6 @@ export interface TextProps {
   $decoration?: string;
   $padding?: string;
   $selfProps?: string;
+  $isLeft?: boolean;
+  $margin?: string;
 }

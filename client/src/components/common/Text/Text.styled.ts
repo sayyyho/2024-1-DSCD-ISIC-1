@@ -11,6 +11,7 @@ export const Text = styled.p<TextProps>`
   }
   text-decoration: ${(props) =>
     props.$decoration ? `${props.$decoration}` : "none"};
-  text-align: center;
+  text-align: ${(props) => (props.$isLeft ? "left" : "center")};
   align-self: ${(props) => `${props.$selfProps}`};
+  margin: ${(props) => (props.$margin ? `${props.$margin}` : 0)};
 `;

@@ -76,7 +76,11 @@ export const Home = () => {
               height: "100%",
             }}
           >
-            <Box height="50%" $backgroundColor="transparent" $padding="1rem 0">
+            <Box
+              height="45%"
+              $backgroundColor="transparent"
+              $padding="1.5rem 0"
+            >
               <img src={CASE} alt="회사가방" />
             </Box>
             <Text size="1rem" color="black">
@@ -100,7 +104,11 @@ export const Home = () => {
               height: "100%",
             }}
           >
-            <Box height="50%" $backgroundColor="transparent" $padding="1rem 0">
+            <Box
+              height="45%"
+              $backgroundColor="transparent"
+              $padding="1.5rem 0"
+            >
               <img src={CAP} alt="학사모" />
             </Box>
             <Text size="1rem" color="black">
@@ -108,6 +116,22 @@ export const Home = () => {
             </Text>
           </Link>
         </Box>
+      </Box>
+      <Box width="90%" height="5%" radius="17px 17px 17px 17px">
+        <Link
+          to="/login"
+          style={{
+            textDecoration: "none",
+            color: "black",
+            width: "100%",
+            height: "100%",
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          로그아웃
+        </Link>
       </Box>
     </PageLayout>
   );
