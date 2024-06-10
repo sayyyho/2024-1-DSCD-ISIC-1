@@ -9,6 +9,7 @@ export const Text = (props: TextProps) => {
       $decoration={props.$decoration}
       $padding={props.$padding}
       $selfProps={props.$selfProps}
+      $isLeft={props.$isLeft}
     >
       {props.children}
     </S.Text>

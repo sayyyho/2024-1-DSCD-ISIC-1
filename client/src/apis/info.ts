@@ -17,7 +17,6 @@ export interface Info {
 }
 
 export const getInfo = async (headers: { Authorization: string }) => {
-  console.log(headers);
   try {
     const response = await instance.get<Info>(`/accounts/profile/`, {
       headers,

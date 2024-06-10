@@ -12,6 +12,7 @@ import { Button } from "@/components/common/Button";
 import { Grid } from "@/components/common/Grid";
 import { Box } from "@/components/common/Box";
 import { Spinner } from "@/components/common/Spinner";
+import { Loading } from "@/components/common/Loading";
 
 export const Info = () => {
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
@@ -127,24 +128,18 @@ export const Info = () => {
       setSubmitStatus("completed");
       setTimeout(() => {
         setSubmitStatus("idle");
-      }, 2000); // 반영 완료 메시지를 2초 동안 표시
+      }, 1500);
     } catch (error) {
       console.error(error);
     }
   };
 
   if (submitStatus === "submitting") {
-    return <Spinner>반영중...</Spinner>;
+    return <Spinner />;
   }
 
   if (submitStatus === "completed") {
-    return (
-      <PageLayout $justifyContent="center" $alignItems="center">
-        <Text color="green" size="24px">
-          반영완료
-        </Text>
-      </PageLayout>
-    );
+    return <Loading />;
   }
 
   return (

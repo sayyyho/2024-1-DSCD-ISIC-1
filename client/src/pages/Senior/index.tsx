@@ -89,17 +89,15 @@ export const Senior = () => {
               </Text>
             </Box>
           </Box>
-          <Grid>
-            <Text size="14px" color="black">
+          <Grid $padding="0 0 0 30px" $center="center">
+            <Text size="14px" color="black" $isLeft={true}>
               #{senior.grades}
             </Text>
-            <Text size="14px" color="black">
+            <Text size="14px" color="black" $isLeft={true}>
               #{senior.major}
             </Text>
-            <Text size="14px" color="black">
-              {senior.double_major === senior.major
-                ? null
-                : `#${senior.double_major}`}
+            <Text size="14px" color="black" $isLeft={true}>
+              {senior.double_major === null ? "" : `#${senior.double_major}`}
             </Text>
           </Grid>
           <Button
