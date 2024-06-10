@@ -5,13 +5,11 @@ import { Text } from "@/components/common/Text";
 import { Box } from "@/components/common/Box";
 import { useEffect, useState } from "react";
 import { getJobs } from "@/apis/getJobs";
-import { useAuthHeader } from "@/hooks/useAuth";
 import { Spinner } from "@/components/common/Spinner";
 import { jobData } from "@/atoms/jobData";
 
 export const Job = () => {
   const [jobDataSet, setJobData] = useRecoilState(jobData);
-  const [headers] = useState(useAuthHeader());
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -22,7 +20,9 @@ export const Job = () => {
     const getData = async () => {
       setLoading(true);
       try {
-        const response = await getJobs(headers);
+        const response = await getJobs({
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        });
         setJobData(response.data.recommendations);
       } catch (error) {
         console.error(error);
@@ -31,7 +31,7 @@ export const Job = () => {
       }
     };
     getData();
-  }, [headers, jobDataSet.length, setJobData]);
+  }, [jobDataSet.length, setJobData]);
 
   if (loading) {
     return <Spinner />;

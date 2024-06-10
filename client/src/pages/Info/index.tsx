@@ -11,11 +11,9 @@ import { TextArea } from "@/components/common/TextArea";
 import { Button } from "@/components/common/Button";
 import { Grid } from "@/components/common/Grid";
 import { Box } from "@/components/common/Box";
-import { useAuthHeader } from "@/hooks/useAuth";
 import { Spinner } from "@/components/common/Spinner";
 
 export const Info = () => {
-  const [header] = useState(useAuthHeader());
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const [selectedGrades, setSelectedGrades] = useState<Option | null>(null);
   const [selectedAward, setSelectedAward] = useState<Option | null>(null);
@@ -40,7 +38,9 @@ export const Info = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const data = await getInfo(header);
+      const data = await getInfo({
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      });
       if (data.status === 200) {
         setStatus(200);
         const skillsArray = data.data.skills
@@ -68,7 +68,7 @@ export const Info = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [header]);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -112,12 +112,16 @@ export const Info = () => {
     console.log(updatedData);
     try {
       if (status === 204) {
-        await postInfo(updatedData, header);
+        await postInfo(updatedData, {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        });
         setStatus(200);
       } else {
         setData(updatedData);
         setStatus(200);
-        await patchInfo(updatedData, header);
+        await patchInfo(updatedData, {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        });
         // console.log(res);
       }
       setSubmitStatus("completed");

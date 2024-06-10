@@ -3,9 +3,7 @@ import { instance } from "./axios";
 
 export const getSenior = async (headers: { Authorization: string }) => {
   try {
-    const response = await instance.get(`/matching/senior/`, {
-      headers,
-    });
+    const response = await instance.get(`/matching/senior/`, { headers });
     return response;
   } catch (error) {
     if (isAxiosError(error)) {

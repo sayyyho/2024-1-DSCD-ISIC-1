@@ -4,7 +4,6 @@ import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
 import { useEffect, useState } from "react";
 import { getSenior } from "@/apis/getSenior";
-import { useAuthHeader } from "@/hooks/useAuth";
 import { Text } from "@/components/common/Text";
 import { Box } from "@/components/common/Box";
 import { Spinner } from "@/components/common/Spinner";
@@ -14,7 +13,6 @@ import { seniorData } from "@/atoms/seniorData";
 import USER from "@/assets/images/user.svg";
 
 export const Senior = () => {
-  const [headers] = useState(useAuthHeader());
   const [loading, setLoading] = useState(true);
   const [SeniorData, setSeniorData] = useRecoilState(seniorData);
   const navigate = useNavigate();
@@ -26,7 +24,9 @@ export const Senior = () => {
       }
       setLoading(true);
       try {
-        const response = await getSenior(headers);
+        const response = await getSenior({
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        });
         setSeniorData(response.data);
       } catch (error) {
         console.error(error);
@@ -35,7 +35,7 @@ export const Senior = () => {
       }
     };
     getData();
-  }, [headers, setSeniorData, SeniorData.length]);
+  }, [setSeniorData, SeniorData.length]);
 
   if (loading) {
     return <Spinner />;
