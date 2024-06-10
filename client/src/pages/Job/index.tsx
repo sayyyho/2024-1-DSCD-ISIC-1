@@ -1,23 +1,29 @@
+import { useRecoilState } from "recoil";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
 import { Text } from "@/components/common/Text";
 import { Box } from "@/components/common/Box";
 import { useEffect, useState } from "react";
-import { getJobs, JobRecommendation } from "@/apis/getJobs";
+import { getJobs } from "@/apis/getJobs";
 import { useAuthHeader } from "@/hooks/useAuth";
 import { Spinner } from "@/components/common/Spinner";
+import { jobData } from "@/atoms/jobData";
 
 export const Job = () => {
+  const [jobDataSet, setJobData] = useRecoilState(jobData);
   const [headers] = useState(useAuthHeader());
-  const [res, setRes] = useState<JobRecommendation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (jobDataSet.length > 0) {
+      setLoading(false);
+      return;
+    }
     const getData = async () => {
       setLoading(true);
       try {
         const response = await getJobs(headers);
-        setRes(response.data.recommendations);
+        setJobData(response.data.recommendations);
       } catch (error) {
         console.error(error);
       } finally {
@@ -25,7 +31,7 @@ export const Job = () => {
       }
     };
     getData();
-  }, [headers]);
+  }, [headers, jobDataSet.length, setJobData]);
 
   if (loading) {
     return <Spinner />;
@@ -40,7 +46,7 @@ export const Job = () => {
       <Text color="black" size="15px" $padding="10px">
         AI가 분석한 추천 직업입니다.
       </Text>
-      {res.map((job, index) => (
+      {jobDataSet.map((job, index) => (
         <Box
           key={index}
           width="90%"
