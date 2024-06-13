@@ -5,8 +5,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 WORKDIR /app/backend
 
-COPY requirements.txt /app/backend/
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
