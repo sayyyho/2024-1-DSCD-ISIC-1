@@ -2,7 +2,9 @@ import styled from "styled-components";
 import theme from "@/theme";
 import { ButtonProps } from "@/interfaces/button";
 
-export const Button = styled.button<ButtonProps>`
+export const Button = styled.button.attrs<ButtonProps>((props) => ({
+  disabled: props.$status ? true : false,
+}))<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;

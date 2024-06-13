@@ -20,5 +20,6 @@ export const Box = styled.div<BoxProps>`
       : `${theme.colors.boxSub}`};
   border-radius: ${(props) => (props.radius ? `${props.radius}` : 0)};
   box-shadow: ${(props) => (props.$shadow ? `${props.$shadow}` : 0)};
+  gap: ${(props) => (props.$gap ? `${props.$gap}` : 0)};
   /* 17px 17px */
 `;

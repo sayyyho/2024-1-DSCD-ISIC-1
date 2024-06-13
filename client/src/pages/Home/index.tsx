@@ -24,21 +24,30 @@ export const Home = () => {
     <PageLayout $gap="1rem">
       <Box
         width="90%"
-        height="55%"
+        height="380px"
         $backgroundColor="#F3E1B0"
         radius="17px 17px 17px 17px"
+        $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+        margin="10px 0"
       >
-        <Text size="3rem" color="white" $padding="0">
-          졸업한 선배의
-        </Text>
-        <Text size="3rem" color="white" $padding="0">
-          밥벌이 알아보기
-        </Text>
+        <Box width="90%" $backgroundColor="transparent">
+          <Text size="2.7rem" color="white" $padding="0" $selfProps="start">
+            졸업한 선배의
+          </Text>
+          <Text size="2.7rem" color="white" $padding="0" $selfProps="start">
+            밥벌이 알아보기
+          </Text>
+        </Box>
         <Wrapper width="80%" $margin="20% 0 0 0" $isFlex={true}>
           <img src={PEOPLE_IMG} alt="선배이미지" />
         </Wrapper>
       </Box>
-      <Box width="90%" height="10%" radius="17px 17px 17px 17px">
+      <Box
+        width="90%"
+        height="70px"
+        radius="17px 17px 17px 17px"
+        $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+      >
         <Link
           to="/info"
           style={{
@@ -56,7 +65,7 @@ export const Home = () => {
       </Box>
       <Box
         width="90%"
-        height="20%"
+        height="140px"
         $flexDirection="row"
         $backgroundColor="transparent"
         $justifyProps="space-between"
@@ -66,6 +75,7 @@ export const Home = () => {
           height="100%"
           radius="24px"
           $justifyProps="space-around"
+          $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
         >
           <Link
             to="/job"
@@ -94,6 +104,7 @@ export const Home = () => {
           radius="24px"
           // border="20px"
           $justifyProps="space-around"
+          $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
         >
           <Link
             to="/senior"
@@ -117,7 +128,13 @@ export const Home = () => {
           </Link>
         </Box>
       </Box>
-      <Box width="90%" height="5%" radius="17px 17px 17px 17px">
+      <Box
+        width="90%"
+        height="5%"
+        radius="17px 17px 17px 17px"
+        $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+        margin="10px 0"
+      >
         <Link
           to="/login"
           style={{

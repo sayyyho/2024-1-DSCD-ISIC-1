@@ -1,17 +1,17 @@
+import * as S from "./Loading.styled";
 import { PageLayout } from "@/components/PageLayout";
-import { Box } from "../Box";
 import { Text } from "../Text";
-import LoadingImg from "@/assets/images/loading.png";
+import LOADING_LOGO from "@/assets/images/loading.png";
 
-export const Loading = () => {
+export const Loading = (props: { children: React.ReactNode }) => {
   return (
     <PageLayout>
-      <Box width="50%" $backgroundColor="transparent">
-        <img src={LoadingImg} alt="" />
-        <Text color="black" size="20px" $padding="30px">
-          반영완료 !!
+      <S.LoadingLayout>
+        <S.LoadingImg src={LOADING_LOGO} alt="이미지" />
+        <Text color="black" size="20px">
+          {props.children}
         </Text>
-      </Box>
+      </S.LoadingLayout>
     </PageLayout>
   );
 };

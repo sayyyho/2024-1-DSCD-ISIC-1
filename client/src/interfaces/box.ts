@@ -12,4 +12,5 @@ export interface BoxProps {
   $flexDirection?: string;
   $justifyProps?: string;
   $shadow?: string;
+  $gap?: string;
 }

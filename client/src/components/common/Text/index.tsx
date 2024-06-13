@@ -11,6 +11,9 @@ export const Text = (props: TextProps) => {
       $selfProps={props.$selfProps}
       $isLeft={props.$isLeft}
       $margin={props.$margin}
+      $justifySelf={props.$justifySelf}
+      $height={props.$height}
+      $lineHeight={props.$lineHeight}
     >
       {props.children}
     </S.Text>
