@@ -5,8 +5,8 @@ import { Text } from "@/components/common/Text";
 import { Box } from "@/components/common/Box";
 import { useEffect, useState } from "react";
 import { getJobs } from "@/apis/getJobs";
-import { Spinner } from "@/components/common/Spinner";
 import { jobData } from "@/atoms/jobData";
+import { Loading } from "@/components/common/Loading";
 
 export const Job = () => {
   const [jobDataSet, setJobData] = useRecoilState(jobData);
@@ -34,11 +34,11 @@ export const Job = () => {
   }, [jobDataSet.length, setJobData]);
 
   if (loading) {
-    return <Spinner />;
+    return <Loading>AI가 추천 직업을 찾고 있어요...</Loading>;
   }
 
   return (
-    <PageLayout $justifyContent="start">
+    <PageLayout $justifyContent="start" height="none">
       <Header></Header>
       <Text color="black" size="36px">
         추천 직업 보기
@@ -50,14 +50,14 @@ export const Job = () => {
         <Box
           key={index}
           width="90%"
-          $padding="10px"
+          $padding="25px 10px"
           $backgroundColor="#ffffff"
           radius="10px"
           margin="15px 0px"
-          border="1px solid black"
+          $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
         >
-          <Text color="black" size="24px" $padding="10px">
-            {job.job_name}
+          <Text color="black" size="1.5rem" $padding="10px" $margin="0.5rem">
+            🍚 {job.job_name} 🍚
           </Text>
           <Box
             $justifyProps="start"
@@ -65,11 +65,16 @@ export const Job = () => {
             $flexDirection="row"
             $padding="10px"
             $backgroundColor="transparent"
+            margin="15px 0 5px 0"
           >
-            추천 이유
+            <Text size="1.2rem" color="black">
+              추천 이유
+            </Text>
           </Box>
           <Box $justifyProps="start" $backgroundColor="transparent">
-            {job.recommendation_reason}
+            <Text color="black" size="14px" $isLeft={true} $lineHeight="20px">
+              {job.recommendation_reason}
+            </Text>
           </Box>
           <Box
             $justifyProps="start"
@@ -77,11 +82,16 @@ export const Job = () => {
             $flexDirection="row"
             $padding="10px"
             $backgroundColor="transparent"
+            margin="15px 0 5px 0"
           >
-            보완점
+            <Text size="1.2rem" color="black">
+              보완점
+            </Text>
           </Box>
           <Box $justifyProps="flex-start" $backgroundColor="transparent">
-            {job.improvement_points}
+            <Text color="black" size="14px" $isLeft={true} $lineHeight="20px">
+              {job.improvement_points}
+            </Text>
           </Box>
         </Box>
       ))}

@@ -14,4 +14,6 @@ export const Text = styled.p<TextProps>`
   text-align: ${(props) => (props.$isLeft ? "left" : "center")};
   align-self: ${(props) => `${props.$selfProps}`};
   margin: ${(props) => (props.$margin ? `${props.$margin}` : 0)};
+  justify-self: ${(props) => `${props.$justifySelf}`};
+  line-height: ${(props) => (props.$lineHeight ? `${props.$lineHeight}` : "1")};
 `;

@@ -16,6 +16,7 @@ export const Box = (props: BoxProps) => {
       $flexDirection={props.$flexDirection}
       $justifyProps={props.$justifyProps}
       $shadow={props.$shadow}
+      $gap={props.$gap}
     >
       {props.children}
     </S.Box>

@@ -138,6 +138,7 @@ export const SignUp = () => {
             name="sex"
             $status={status}
             onClick={handleStatus}
+            isCursor={true}
           >
             남자
           </Button>
@@ -148,6 +149,7 @@ export const SignUp = () => {
             radius="6px"
             name="sex"
             $status={!status}
+            isCursor={true}
             onClick={handleStatus}
           >
             여자
@@ -185,6 +187,7 @@ export const SignUp = () => {
           radius="5px"
           color="white"
           onClick={() => onSubmit(user)}
+          isCursor={true}
         >
           회원가입
         </Button>
