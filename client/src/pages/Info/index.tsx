@@ -9,12 +9,13 @@ import { Input } from "@/components/common/Input";
 import { skills, grades, fields, Option } from "@/constant/options";
 import { TextArea } from "@/components/common/TextArea";
 import { Button } from "@/components/common/Button";
-import { Grid } from "@/components/common/Grid";
-import { Box } from "@/components/common/Box";
-import { Spinner } from "@/components/common/Spinner";
 import { Loading } from "@/components/common/Loading";
+import { Complete } from "@/components/common/Complete";
+import { Box } from "@/components/common/Box";
+import { useNavigate } from "react-router-dom";
 
 export const Info = () => {
+  const navigate = useNavigate();
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const [selectedGrades, setSelectedGrades] = useState<Option | null>(null);
   const [selectedAward, setSelectedAward] = useState<MultiValue<Option>>(null);
@@ -150,6 +151,8 @@ export const Info = () => {
       setSubmitStatus("completed");
       setTimeout(() => {
         setSubmitStatus("idle");
+        navigate("/home");
+        window.location.reload();
       }, 1500);
     } catch (error) {
       console.error(error);
@@ -157,11 +160,11 @@ export const Info = () => {
   };
 
   if (submitStatus === "submitting") {
-    return <Spinner />;
+    return <Loading>정보를 저장 중이에요...</Loading>;
   }
 
   if (submitStatus === "completed") {
-    return <Loading />;
+    return <Complete />;
   }
 
   return (
@@ -178,129 +181,162 @@ export const Info = () => {
         $margin="30px 0px 0px 0px"
         $padding="15px"
       >
-        <Text color="black" size="16px" $selfProps="flex-start">
-          주전공
-        </Text>
-        <Input
-          width="98%"
-          height="35px"
-          $type="text"
-          $radius="6px"
-          name="major"
-          value={data.major}
-          onChange={onChange}
-          defaultString="주전공을 입력해주세요."
-        />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          복수전공
-        </Text>
-        <Input
-          width="98%"
-          height="35px"
-          $type="text"
-          $radius="6px"
-          name="double_major"
-          value={data.double_major}
-          onChange={onChange}
-          defaultString="복수전공을 입력해주세요. 없으면 X를 입력해주세요."
-        />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          학점
-        </Text>
-        <Select
-          value={selectedGrades}
-          onChange={setSelectedGrades}
-          options={grades}
-          styles={customStyles}
-          placeholder="학점을 선택해주세요."
-        />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          보유기술
-        </Text>
-        <Select
-          isMulti
-          value={selectedSkills}
-          onChange={handleSkillsChange}
-          options={skills}
-          styles={customStyles}
-          placeholder="보유기술을 선택해주세요."
-        />
-        {selectedSkills.length > 0 && (
-          <Grid>
-            {selectedSkills.map((skill) => (
-              <Box
-                key={skill.value}
-                height="40px"
-                $backgroundColor="#FFFFFF"
-                radius="10px"
-              >
-                <Text color="black" size="15px">
-                  {skill.label}
-                </Text>
-              </Box>
-            ))}
-          </Grid>
-        )}
-        <Text color="black" size="16px" $selfProps="flex-start">
-          수상이력
-        </Text>
-        <Select
-          isMulti
-          value={selectedAward}
-          onChange={handleAwardChange}
-          options={fields}
-          styles={customStyles}
-          placeholder="관련분야를 선택해주세요."
-        />
-        <TextArea
-          width="98%"
-          height="100px"
-          name="award_detail"
-          value={data.award_detail}
-          onChange={onChange}
-          defaultString="세부 설명을 입력해주세요."
-          $radius="6px"
-        />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          동아리 활동
-        </Text>
-        <Select
-          isMulti
-          value={selectedClub}
-          onChange={handleClubChange}
-          options={fields}
-          styles={customStyles}
-          placeholder="관련분야를 선택해주세요."
-        />
-        <TextArea
-          width="98%"
-          height="100px"
-          name="club_detail"
-          value={data.club_detail}
-          onChange={onChange}
-          defaultString="세부 설명을 입력해주세요."
-          $radius="6px"
-        />
-        <Text color="black" size="16px" $selfProps="flex-start">
-          프로젝트 경험
-        </Text>
-        <Select
-          isMulti
-          value={selectedProject}
-          onChange={handleProjectChange}
-          options={fields}
-          styles={customStyles}
-          placeholder="관련분야를 선택해주세요."
-        />
-        <TextArea
-          width="98%"
-          height="100px"
-          name="project_detail"
-          value={data.project_detail}
-          onChange={onChange}
-          defaultString="세부 설명을 입력해주세요."
-          $radius="6px"
-        />
+        <Box width="100%" margin="0 0 1rem 0" $backgroundColor="transparent">
+          <Text
+            color="black"
+            size="16px"
+            $selfProps="flex-start"
+            $margin="0 0 0.25rem 0"
+          >
+            주전공
+          </Text>
+          <Input
+            width="98%"
+            height="35px"
+            $type="text"
+            $radius="6px"
+            name="major"
+            value={data.major}
+            onChange={onChange}
+            defaultString="주전공을 입력해주세요."
+          />
+        </Box>
+        <Box
+          width="100%"
+          margin="0 0 1rem 0"
+          $backgroundColor="transparent"
+          $gap="0.3rem"
+        >
+          <Text color="black" size="16px" $selfProps="flex-start">
+            복수전공
+          </Text>
+          <Input
+            width="98%"
+            height="35px"
+            $type="text"
+            $radius="6px"
+            name="double_major"
+            value={data.double_major}
+            onChange={onChange}
+            defaultString="복수전공을 입력해주세요. 없으면 X를 입력해주세요."
+          />
+        </Box>
+        <Box
+          width="100%"
+          margin="0 0 1rem 0"
+          $backgroundColor="transparent"
+          $gap="0.3rem"
+        >
+          <Text color="black" size="16px" $selfProps="flex-start">
+            학점
+          </Text>
+          <Select
+            value={selectedGrades}
+            onChange={setSelectedGrades}
+            options={grades}
+            styles={customStyles}
+            placeholder="학점을 선택해주세요."
+          />
+        </Box>
+        <Box
+          width="100%"
+          margin="0 0 1rem 0"
+          $backgroundColor="transparent"
+          $gap="0.3rem"
+        >
+          <Text color="black" size="16px" $selfProps="flex-start">
+            보유기술
+          </Text>
+          <Select
+            isMulti
+            value={selectedSkills}
+            onChange={handleSkillsChange}
+            options={skills}
+            styles={customStyles}
+            placeholder="보유기술을 선택해주세요."
+          />
+        </Box>
+        <Box
+          width="100%"
+          margin="0 0 1rem 0"
+          $backgroundColor="transparent"
+          $gap="0.3rem"
+        >
+          <Text color="black" size="16px" $selfProps="flex-start">
+            수상이력
+          </Text>
+          <Select
+            isMulti
+            value={selectedAward}
+            onChange={handleAwardChange}
+            options={fields}
+            styles={customStyles}
+            placeholder="관련분야를 선택해주세요."
+          />
+          <TextArea
+            width="98%"
+            height="100px"
+            name="award_detail"
+            value={data.award_detail}
+            onChange={onChange}
+            defaultString="세부 설명을 입력해주세요."
+            $radius="6px"
+          />
+        </Box>
+        <Box
+          width="100%"
+          margin="0 0 1rem 0"
+          $backgroundColor="transparent"
+          $gap="0.3rem"
+        >
+          <Text color="black" size="16px" $selfProps="flex-start">
+            동아리 활동
+          </Text>
+          <Select
+            isMulti
+            value={selectedClub}
+            onChange={handleClubChange}
+            options={fields}
+            styles={customStyles}
+            placeholder="관련분야를 선택해주세요."
+          />
+          <TextArea
+            width="98%"
+            height="100px"
+            name="club_detail"
+            value={data.club_detail}
+            onChange={onChange}
+            defaultString="세부 설명을 입력해주세요."
+            $radius="6px"
+          />
+        </Box>
+        <Box
+          width="100%"
+          margin="0 0 1rem 0"
+          $backgroundColor="transparent"
+          $gap="0.3rem"
+        >
+          <Text color="black" size="16px" $selfProps="flex-start">
+            프로젝트 경험
+          </Text>
+          <Select
+            isMulti
+            value={selectedProject}
+            onChange={handleProjectChange}
+            options={fields}
+            styles={customStyles}
+            placeholder="관련분야를 선택해주세요."
+          />
+          <TextArea
+            width="98%"
+            height="100px"
+            name="project_detail"
+            value={data.project_detail}
+            onChange={onChange}
+            defaultString="세부 설명을 입력해주세요."
+            $radius="6px"
+          />
+        </Box>
         <Button
           margin="20px 0px 0px 0px"
           width="100%"
