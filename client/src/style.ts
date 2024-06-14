@@ -3,6 +3,10 @@ import Jua from "@/assets/font/Jua-Regular.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 
+  :root {
+    --vh: 100%;
+  }
+
 @font-face {
     font-family: 'Jua';
     src: url(${Jua}) format('truetype');
