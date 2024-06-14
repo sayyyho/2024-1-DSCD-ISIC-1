@@ -8,10 +8,16 @@ import CASE from "@/assets/images/briefCase.svg";
 import CAP from "@/assets/images/graduationCap.svg";
 import { useEffect } from "react";
 
+function setScreenSize() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+}
+
 export const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setScreenSize();
     const moveToLogin = () => {
       navigate("/login");
     };
