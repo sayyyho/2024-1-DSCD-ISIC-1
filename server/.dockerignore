@@ -10,7 +10,7 @@
 .env
 
 # Django의 정적 파일 및 컬렉트된 정적 파일
-static/
+#static/
 collected_static/
 
 # PostgreSQL과 관련된 임시 및 로컬 파일
