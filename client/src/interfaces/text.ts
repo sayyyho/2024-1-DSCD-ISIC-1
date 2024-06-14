@@ -7,4 +7,7 @@ export interface TextProps {
   $selfProps?: string;
   $isLeft?: boolean;
   $margin?: string;
+  $justifySelf?: string;
+  $height?: string;
+  $lineHeight?: string;
 }

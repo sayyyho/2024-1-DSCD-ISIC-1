@@ -35,14 +35,15 @@ export const SeniorDetail = () => {
       <Box
         $backgroundColor="white"
         width="95%"
-        height="45vh"
+        height="310px"
         radius="20px"
         $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+        $gap="17px"
       >
-        <Text color="black" size="40px" $margin="0 0 5px 0">
+        <Text color="black" size="40px">
           {seniorData.name}
         </Text>
-        <Text color="black" size="25px" $margin="0 0 5px 0">
+        <Text color="black" size="25px">
           {seniorData.job}
         </Text>
         <Box
@@ -56,7 +57,7 @@ export const SeniorDetail = () => {
             $backgroundColor="white"
             width="27%"
             $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
-            height="95%"
+            height="90%"
             $justifyProps="start"
             radius="20px"
           >
@@ -88,9 +89,7 @@ export const SeniorDetail = () => {
             />
             <Text color="black" size="15px">
               {seniorData.major}
-            </Text>
-            <Text color="black" size="15px">
-              {seniorData.double_major ? seniorData.double_major : ""}
+              {seniorData.double_major ? ` / ${seniorData.double_major}` : ""}
             </Text>
           </Box>
           <Box
@@ -115,15 +114,15 @@ export const SeniorDetail = () => {
         </Box>
       </Box>
       <Box
-        margin="20px 0"
+        margin="25px 0"
         $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
         width="95%"
         $backgroundColor="white"
         radius="20px"
-        $padding="10px 0"
+        $padding="15px 0"
       >
-        <Text color="black" size="25px" $margin="10px 0 0 0">
-          보유 기술
+        <Text color="black" size="25px" $margin="10px 0 0 0" $isLeft={true}>
+          ⚒️ 보유 기술
         </Text>
         <div
           style={{
@@ -132,6 +131,7 @@ export const SeniorDetail = () => {
             gap: "10px",
             padding: "10px",
             gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+            margin: "1rem 0",
           }}
         >
           {seniorData.skills?.map((skill) => (
@@ -139,31 +139,55 @@ export const SeniorDetail = () => {
               height="40px"
               key={skill}
               $backgroundColor="#FFFFFF"
-              radius="10px"
-              border="1px solid #000000"
+              radius="50px"
+              $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
             >
               {skill}
             </Box>
           ))}
         </div>
-        <Text color="black" size="25px" $margin="20px 0 0 0">
-          수상 내역
-        </Text>
-        <Text color="black" size="15px" $margin="10px 0 0 0">
-          {seniorData.award_part}
-        </Text>
-        <Text color="black" size="25px" $margin="20px 0 0 0">
-          동아리 활동
-        </Text>
-        <Text color="black" size="15px" $margin="10px 0 0 0">
-          {seniorData.club_part}
-        </Text>
-        <Text color="black" size="25px" $margin="20px 0 0 0">
-          프로젝트 경혐
-        </Text>
-        <Text color="black" size="15px" $margin="10px 0 0 0">
-          {seniorData.project_part}
-        </Text>
+        <Box
+          width="90%"
+          radius="20px"
+          $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
+          $backgroundColor="transparent"
+          margin="10px 0"
+        >
+          <Text color="black" size="25px" $margin="20px 0 0 0">
+            🏅 수상 내역 🏅
+          </Text>
+          <Text color="black" size="15px" $margin="5px 0 10px 0">
+            {seniorData.award_part}
+          </Text>
+        </Box>
+        <Box
+          width="90%"
+          radius="20px"
+          $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
+          $backgroundColor="transparent"
+          margin="10px 0"
+        >
+          <Text color="black" size="25px" $margin="20px 0 0 0">
+            🏃🏻 동아리 활동 🏃🏻
+          </Text>
+          <Text color="black" size="15px" $margin="5px 0 10px 0">
+            {seniorData.club_part}
+          </Text>
+        </Box>
+        <Box
+          width="90%"
+          radius="20px"
+          $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
+          $backgroundColor="transparent"
+          margin="10px 0"
+        >
+          <Text color="black" size="25px" $margin="20px 0 0 0">
+            🎨 프로젝트 경혐 🎨
+          </Text>
+          <Text color="black" size="15px" $margin="5px 0 10px 0">
+            {seniorData.project_part}
+          </Text>
+        </Box>
       </Box>
     </PageLayout>
   );

@@ -255,4 +255,8 @@ export const skills: Option[] = [
   { value: "pouchdb", label: "PouchDB" },
   { value: "redis", label: "Redis" },
   { value: "memcached", label: "Memcached" },
+  { value: "pytorch", label: "Pytorch" },
+  { value: "cplex", label: "Cplex" },
+  { value: "gurobi", label: "Gurobi" },
+  { value: "ortools", label: "Ortools" },
 ];
