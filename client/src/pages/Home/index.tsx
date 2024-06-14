@@ -21,7 +21,7 @@ export const Home = () => {
   }, [navigate]);
 
   return (
-    <PageLayout $gap="0.8rem">
+    <PageLayout $gap="0.8rem" height="100svh">
       <Box
         width="90%"
         height="380px"
