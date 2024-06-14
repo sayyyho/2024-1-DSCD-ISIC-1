@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Wrapper } from "@/components/common/Wrapper";
+import { PageLayout } from "@/components/PageLayout";
 import { LogoFrame } from "@/components/LogoFrame";
 import { LoginForm } from "@/components/LoginForm";
 import { RequestLoginParams } from "@/types/auth";
@@ -41,13 +41,13 @@ export const Login = () => {
   );
 
   return (
-    <Wrapper height="100%">
+    <PageLayout $justifyContent="start" width="425px" height="100%">
       <LogoFrame></LogoFrame>
       <LoginForm
         onChange={onChange}
         handleLogin={() => onSubmit(user)}
       ></LoginForm>
-    </Wrapper>
+    </PageLayout>
   );
 };
 

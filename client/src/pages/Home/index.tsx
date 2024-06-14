@@ -21,7 +21,7 @@ export const Home = () => {
   }, [navigate]);
 
   return (
-    <PageLayout $gap="1rem">
+    <PageLayout $gap="0.8rem">
       <Box
         width="90%"
         height="380px"
@@ -128,28 +128,16 @@ export const Home = () => {
           </Link>
         </Box>
       </Box>
-      <Box
-        width="90%"
-        height="5%"
-        radius="17px 17px 17px 17px"
-        $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-        margin="10px 0"
+      <Link
+        to={"/login"}
+        style={{
+          color: "black",
+          textDecoration: "underline",
+          marginTop: "1rem",
+        }}
       >
-        <Link
-          to="/login"
-          style={{
-            textDecoration: "none",
-            color: "black",
-            width: "100%",
-            height: "100%",
-            alignItems: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          로그아웃
-        </Link>
-      </Box>
+        로그아웃 하기
+      </Link>
     </PageLayout>
   );
 };

@@ -3,19 +3,22 @@ import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 import { Text } from "../common/Text";
 import { Artice } from "../Article";
-import { Box } from "../common/Box";
 
 export const LoginForm = (props: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLogin: () => void;
 }) => {
   return (
-    <Box
-      width="100%"
-      height="50%"
-      $backgroundColor={"#F3E1B0"}
-      $padding="10% 0 0 0"
-      radius="17px 17px 0 0"
+    <div
+      style={{
+        width: "100%",
+        height: "50%",
+        backgroundColor: "#F3E1B0",
+        paddingTop: "10%",
+        borderRadius: "17px 17px 0 0",
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
       <S.LoginFrame>
         <Input
@@ -50,6 +53,6 @@ export const LoginForm = (props: {
         </Button>
       </S.LoginFrame>
       <Artice></Artice>
-    </Box>
+    </div>
   );
 };
