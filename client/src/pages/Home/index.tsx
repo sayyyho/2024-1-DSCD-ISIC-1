@@ -7,30 +7,28 @@ import PEOPLE_IMG from "@/assets/images/people.png";
 import CASE from "@/assets/images/briefCase.svg";
 import CAP from "@/assets/images/graduationCap.svg";
 import { useEffect } from "react";
-
-function setScreenSize() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
-}
+import { sizeState } from "@/atoms/size";
+import { useRecoilState } from "recoil";
 
 export const Home = () => {
   const navigate = useNavigate();
-
+  const [size, setSize] = useRecoilState(sizeState);
   useEffect(() => {
-    setScreenSize();
+    const vh = window.innerHeight;
+    setSize(vh);
     const moveToLogin = () => {
       navigate("/login");
     };
     if (!sessionStorage.getItem("token")) {
       moveToLogin();
     }
-  }, [navigate]);
+  }, [navigate, setSize]);
 
   return (
-    <PageLayout $gap="0.8rem" height="calc(var(--vh, 1vh) * 100)">
+    <PageLayout $gap="0.8rem" height={size < 650 ? "none" : `${size}px`}>
       <Box
         width="90%"
-        height="380px"
+        height="350px"
         $backgroundColor="#F3E1B0"
         radius="17px 17px 17px 17px"
         $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
