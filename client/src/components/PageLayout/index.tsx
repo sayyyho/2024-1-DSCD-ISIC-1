@@ -7,6 +7,7 @@ export const PageLayout = (props: WrapperProps) => {
       $gap={props.$gap}
       $justifyContent={props.$justifyContent}
       height={props.height}
+      $isScroll={props.$isScroll}
     >
       {props.children}
     </S.Wrapper>

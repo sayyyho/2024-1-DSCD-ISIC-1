@@ -9,4 +9,5 @@ export interface WrapperProps {
   $flexDirection?: string;
   $alignItems?: string;
   $justifyContent?: string;
+  $isScroll?: boolean;
 }

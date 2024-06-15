@@ -180,7 +180,7 @@ export const SignUp = () => {
           onChange={onChange}
         />
         <Button
-          margin="20px 0px 0px 0px"
+          margin="20px 0px 2rem 0px"
           width="100%"
           height="50px"
           backgroundColor="#4D3E3E"

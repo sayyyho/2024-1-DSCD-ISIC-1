@@ -20,7 +20,6 @@ export const Artice = () => {
           </Link>
         </Text>
       </S.Span>
-
       <S.Footer>
         <Text color="black" size="0.5rem">
           dev by ISIC

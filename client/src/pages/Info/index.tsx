@@ -153,7 +153,7 @@ export const Info = () => {
         setSubmitStatus("idle");
         navigate("/home");
         window.location.reload();
-      }, 1500);
+      }, 1250);
     } catch (error) {
       console.error(error);
     }
@@ -338,7 +338,7 @@ export const Info = () => {
           />
         </Box>
         <Button
-          margin="20px 0px 0px 0px"
+          margin="15px 0 3rem 0px"
           width="100%"
           height="50px"
           backgroundColor="#4D3E3E"

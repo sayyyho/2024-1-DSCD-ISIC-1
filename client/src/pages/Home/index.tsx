@@ -7,24 +7,28 @@ import PEOPLE_IMG from "@/assets/images/people.png";
 import CASE from "@/assets/images/briefCase.svg";
 import CAP from "@/assets/images/graduationCap.svg";
 import { useEffect } from "react";
+import { sizeState } from "@/atoms/size";
+import { useRecoilState } from "recoil";
 
 export const Home = () => {
   const navigate = useNavigate();
-
+  const [size, setSize] = useRecoilState(sizeState);
   useEffect(() => {
+    const vh = window.innerHeight;
+    setSize(vh);
     const moveToLogin = () => {
       navigate("/login");
     };
     if (!sessionStorage.getItem("token")) {
       moveToLogin();
     }
-  }, [navigate]);
+  }, [navigate, setSize]);
 
   return (
-    <PageLayout $gap="1rem">
+    <PageLayout $gap="0.8rem" height={size < 650 ? "none" : `${size}px`}>
       <Box
         width="90%"
-        height="380px"
+        height="350px"
         $backgroundColor="#F3E1B0"
         radius="17px 17px 17px 17px"
         $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
@@ -128,28 +132,16 @@ export const Home = () => {
           </Link>
         </Box>
       </Box>
-      <Box
-        width="90%"
-        height="5%"
-        radius="17px 17px 17px 17px"
-        $shadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-        margin="10px 0"
+      <Link
+        to={"/login"}
+        style={{
+          color: "black",
+          textDecoration: "underline",
+          marginTop: "1rem",
+        }}
       >
-        <Link
-          to="/login"
-          style={{
-            textDecoration: "none",
-            color: "black",
-            width: "100%",
-            height: "100%",
-            alignItems: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          로그아웃
-        </Link>
-      </Box>
+        로그아웃 하기
+      </Link>
     </PageLayout>
   );
 };

@@ -3,6 +3,9 @@ import Jua from "@/assets/font/Jua-Regular.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 
+  :root {
+    --vh: 100%;
+  }
 
 @font-face {
     font-family: 'Jua';
@@ -23,7 +26,7 @@ html {
   display: flex;
   justify-content: center;
   padding: 0;
-  height: 100vh;
+  height: 100dvh;
 }
 body  {
     background-color: #FEF9EB;  
@@ -34,5 +37,4 @@ body  {
     height: 100%;
     width: 100%;
   }
-
 `;
