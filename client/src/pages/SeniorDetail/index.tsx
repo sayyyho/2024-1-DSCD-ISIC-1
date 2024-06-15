@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { Header } from "@/components/common/Header";
 import { getSeniorDetail } from "@/apis/getSeniorDetail";
@@ -188,6 +188,28 @@ export const SeniorDetail = () => {
             {seniorData.project_part}
           </Text>
         </Box>
+      </Box>
+      <Box
+        width="95%"
+        height="40px"
+        $backgroundColor="#FFFFFF"
+        margin="0 0 1.5rem 0"
+        radius="20px"
+        $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
+      >
+        <Link
+          to="https://open.kakao.com/o/sxRhTvxg"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+            color: "black",
+          }}
+        >
+          선배와 소통하기
+        </Link>
       </Box>
     </PageLayout>
   );
