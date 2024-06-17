@@ -7,6 +7,7 @@ import { Box } from "@/components/common/Box";
 import { Text } from "@/components/common/Text";
 import { useParams } from "react-router-dom";
 import { SeniorDetailProps } from "@/apis/getSeniorDetail";
+import { openChattingURL } from "@/constant/kakao";
 import genderImg from "@/assets/images/gender.svg";
 import groupImg from "@/assets/images/group.svg";
 import gradeImg from "@/assets/images/grade.svg";
@@ -198,7 +199,7 @@ export const SeniorDetail = () => {
         $shadow="0px 3.529px 3.529px 0px rgba(0, 0, 0, 0.25)"
       >
         <Link
-          to="https://open.kakao.com/o/sxRhTvxg"
+          to={openChattingURL[0]}
           style={{
             display: "flex",
             justifyContent: "center",
