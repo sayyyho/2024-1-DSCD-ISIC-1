@@ -8,7 +8,6 @@ import { Text } from "@/components/common/Text";
 import { Input } from "@/components/common/Input";
 import { skills, grades, fields, Option } from "@/constant/options";
 import { TextArea } from "@/components/common/TextArea";
-import { Button } from "@/components/common/Button";
 import { Loading } from "@/components/common/Loading";
 import { Complete } from "@/components/common/Complete";
 import { Box } from "@/components/common/Box";
@@ -18,14 +17,16 @@ export const Info = () => {
   const navigate = useNavigate();
   const [selectedSkills, setSelectedSkills] = useState<MultiValue<Option>>([]);
   const [selectedGrades, setSelectedGrades] = useState<Option | null>(null);
-  const [selectedAward, setSelectedAward] = useState<MultiValue<Option>>(null);
-  const [selectedClub, setSelectedClub] = useState<MultiValue<Option>>(null);
-  const [selectedProject, setSelectedProject] =
-    useState<MultiValue<Option>>(null);
+  const [selectedAward, setSelectedAward] = useState<MultiValue<Option>>([]);
+  const [selectedClub, setSelectedClub] = useState<MultiValue<Option>>([]);
+  const [selectedProject, setSelectedProject] = useState<MultiValue<Option>>(
+    []
+  );
   const [status, setStatus] = useState<number>(204);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "submitting" | "completed"
   >("idle");
+  const [isFormValid, setIsFormValid] = useState(false);
   const [data, setData] = useState<InfoType>({
     award_detail: "",
     award_part: "",
@@ -81,8 +82,25 @@ export const Info = () => {
   }, [fetchData]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    const validateForm = () => {
+      setIsFormValid(
+        !!data.major &&
+          !!selectedGrades &&
+          selectedSkills.length > 0 &&
+          selectedAward.length > 0 &&
+          selectedClub.length > 0 &&
+          selectedProject.length > 0
+      );
+    };
+    validateForm();
+  }, [
+    data,
+    selectedGrades,
+    selectedSkills,
+    selectedAward,
+    selectedClub,
+    selectedProject,
+  ]);
 
   const customStyles: StylesConfig<Option, false> = {
     container: (provided) => ({
@@ -117,6 +135,8 @@ export const Info = () => {
   };
 
   const handleSubmit = async () => {
+    if (!isFormValid) return; // 폼이 유효하지 않으면 서버로 요청하지 않음
+
     setSubmitStatus("submitting");
     const skillsString = selectedSkills.map((skill) => skill.label).join(", ");
     const awardsString = selectedAward.map((award) => award.label).join(", ");
@@ -234,7 +254,7 @@ export const Info = () => {
             options={grades}
             styles={customStyles}
             placeholder="학점을 선택해주세요."
-            required
+            required={true}
           />
         </Box>
         <Box
@@ -253,7 +273,7 @@ export const Info = () => {
             options={skills}
             styles={customStyles}
             placeholder="보유기술을 선택해주세요."
-            required
+            required={true}
           />
         </Box>
         <Box
@@ -272,7 +292,7 @@ export const Info = () => {
             options={fields}
             styles={customStyles}
             placeholder="관련분야를 선택해주세요."
-            required
+            required={true}
           />
           <TextArea
             width="98%"
@@ -343,18 +363,22 @@ export const Info = () => {
             $isRequired={true}
           />
         </Box>
-        <Button
-          margin="15px 0 3rem 0px"
-          width="100%"
-          height="50px"
-          backgroundColor="#4D3E3E"
-          radius="5px"
-          color="white"
+        <button
+          style={{
+            margin: "15px 0 3rem 0px",
+            width: "100%",
+            height: "50px",
+            backgroundColor: isFormValid ? "#4D3E3E" : "#cccccc",
+            borderRadius: "5px",
+            border: "0",
+            color: "white",
+            cursor: isFormValid ? "pointer" : "not-allowed",
+          }}
           onClick={handleSubmit}
-          isCursor={true}
+          disabled={!isFormValid}
         >
           저장하기
-        </Button>
+        </button>
       </Wrapper>
     </PageLayout>
   );
