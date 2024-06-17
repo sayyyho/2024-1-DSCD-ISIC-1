@@ -46,7 +46,6 @@ export const Info = () => {
       });
       if (data.status === 200) {
         setStatus(200);
-        console.log(data);
         const skillsArray = data.data.skills
           .split(", ")
           .map((skill) => ({ value: skill, label: skill }));
@@ -133,7 +132,6 @@ export const Info = () => {
       club_part: clubsString,
       project_part: projectsString,
     };
-    // console.log(updatedData);
     try {
       if (status === 204) {
         await postInfo(updatedData, {
@@ -146,7 +144,6 @@ export const Info = () => {
         await patchInfo(updatedData, {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         });
-        // console.log(res);
       }
       setSubmitStatus("completed");
       setTimeout(() => {
@@ -199,6 +196,7 @@ export const Info = () => {
             value={data.major}
             onChange={onChange}
             defaultString="주전공을 입력해주세요."
+            $isRequired={true}
           />
         </Box>
         <Box
@@ -236,6 +234,7 @@ export const Info = () => {
             options={grades}
             styles={customStyles}
             placeholder="학점을 선택해주세요."
+            required
           />
         </Box>
         <Box
@@ -254,6 +253,7 @@ export const Info = () => {
             options={skills}
             styles={customStyles}
             placeholder="보유기술을 선택해주세요."
+            required
           />
         </Box>
         <Box
@@ -272,6 +272,7 @@ export const Info = () => {
             options={fields}
             styles={customStyles}
             placeholder="관련분야를 선택해주세요."
+            required
           />
           <TextArea
             width="98%"
@@ -281,6 +282,7 @@ export const Info = () => {
             onChange={onChange}
             defaultString="세부 설명을 입력해주세요."
             $radius="6px"
+            $isRequired={true}
           />
         </Box>
         <Box
@@ -299,6 +301,7 @@ export const Info = () => {
             options={fields}
             styles={customStyles}
             placeholder="관련분야를 선택해주세요."
+            required
           />
           <TextArea
             width="98%"
@@ -308,6 +311,7 @@ export const Info = () => {
             onChange={onChange}
             defaultString="세부 설명을 입력해주세요."
             $radius="6px"
+            $isRequired={true}
           />
         </Box>
         <Box
@@ -326,6 +330,7 @@ export const Info = () => {
             options={fields}
             styles={customStyles}
             placeholder="관련분야를 선택해주세요."
+            required
           />
           <TextArea
             width="98%"
@@ -335,6 +340,7 @@ export const Info = () => {
             onChange={onChange}
             defaultString="세부 설명을 입력해주세요."
             $radius="6px"
+            $isRequired={true}
           />
         </Box>
         <Button

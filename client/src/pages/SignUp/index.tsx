@@ -77,6 +77,7 @@ export const SignUp = () => {
           $radius="6px"
           name="username"
           onChange={onChange}
+          $isRequired={true}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           비밀번호
@@ -89,6 +90,7 @@ export const SignUp = () => {
           $radius="6px"
           name="password1"
           onChange={onChange}
+          $isRequired={true}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           비밀번호 확인
@@ -101,6 +103,7 @@ export const SignUp = () => {
           $radius="6px"
           name="password2"
           onChange={onChange}
+          $isRequired={true}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           성
@@ -113,6 +116,7 @@ export const SignUp = () => {
           $radius="6px"
           name="first_name"
           onChange={onChange}
+          $isRequired={true}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           이름
@@ -125,6 +129,7 @@ export const SignUp = () => {
           $radius="6px"
           name="last_name"
           onChange={onChange}
+          $isRequired={true}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           성별
@@ -166,6 +171,7 @@ export const SignUp = () => {
           $radius="6px"
           name="email"
           onChange={onChange}
+          $isRequired={true}
         />
         <Text color="black" size="16px" $selfProps="flex-start">
           전화번호
@@ -178,6 +184,7 @@ export const SignUp = () => {
           $radius="6px"
           name="phone_number"
           onChange={onChange}
+          $isRequired={true}
         />
         <Button
           margin="20px 0px 2rem 0px"

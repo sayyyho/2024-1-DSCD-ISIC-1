@@ -11,6 +11,7 @@ export const TextArea = (props: InputProps) => {
       onChange={props.onChange}
       name={props.name}
       value={props.value}
+      required={props.$isRequired}
     />
   );
 };
