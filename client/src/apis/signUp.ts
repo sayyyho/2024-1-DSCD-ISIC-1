@@ -15,8 +15,6 @@ export const postSignUp = async (body: RequestSignUpParams) => {
       email: body.email,
       phone_number: body.phone_number,
     });
-    console.log(response);
-
     return response;
   } catch (error) {
     if (isAxiosError(error)) {

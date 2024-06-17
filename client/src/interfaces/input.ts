@@ -8,4 +8,5 @@ export interface InputProps {
   $dropType?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  $isRequired?: boolean;
 }

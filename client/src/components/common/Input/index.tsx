@@ -12,6 +12,7 @@ export const Input = (props: InputProps) => {
       name={props.name}
       onChange={props.onChange}
       value={props.value}
+      required={props.$isRequired}
     ></S.Input>
   );
 };
