@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import Jua from "@/assets/font/Jua-Regular.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -7,13 +6,15 @@ export const GlobalStyle = createGlobalStyle`
     --vh: 100%;
   }
 
-@font-face {
-    font-family: 'Jua';
-    src: url(${Jua}) format('truetype');
-    font-weight: normal;
-  } 
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 * {
-  font-family: 'Jua';
+  font-family: 'Pretendard-Regular';
 
 }
 
